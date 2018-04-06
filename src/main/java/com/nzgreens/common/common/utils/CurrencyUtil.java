@@ -17,20 +17,21 @@ public class CurrencyUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Integer convertYuanToFen(String yuanAmount) throws Exception {
+	public static Long convertYuanToFen(String yuanAmount) throws Exception {
 		if (StringUtils.isBlank(yuanAmount)) {
 			throw new Exception("输入金额为空!");
 		}
 
 		yuanAmount = yuanAmount.trim();
-		if (!NumberUtils.isNumber(yuanAmount)) {
-			throw new Exception("输入金额格式错误!");
-		}
+		yuanAmount = yuanAmount.substring(1).replace(",","");
+//		if (!NumberUtils.isNumber(yuanAmount)) {
+//			throw new Exception("输入金额格式错误!");
+//		}
 
 		BigDecimal result = new BigDecimal(yuanAmount);
 		result = result.multiply(HUNDRED);
 
-		return result.setScale(0, BigDecimal.ROUND_UP).intValue();
+		return result.setScale(0, BigDecimal.ROUND_UP).longValue();
 	}
 
 	/**
@@ -40,12 +41,12 @@ public class CurrencyUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static Integer convertYuanToFen(Float yuanAmount) throws Exception {
+	public static Long convertYuanToFen(Float yuanAmount) throws Exception {
 		return convertYuanToFen(String.valueOf(yuanAmount));
 	}
 
 
-	public static Integer convertYuanToFen(Integer yuanAmount) throws Exception {
+	public static Long convertYuanToFen(Integer yuanAmount) throws Exception {
 		return convertYuanToFen(String.valueOf(yuanAmount));
 	}
 
