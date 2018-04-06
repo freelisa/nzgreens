@@ -39,7 +39,8 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
     /**
      * 品牌
      */
-	private String brand;
+	@TableField("brand_id")
+	private String brandId;
     /**
      * 品牌名称
      */
@@ -65,7 +66,8 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
     /**
      * 分类(37,42)
      */
-	private String category;
+	@TableField("category_id")
+	private String categoryId;
     /**
      * 分类名称（母婴,幼儿）
      */
@@ -120,12 +122,12 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 		this.reptileProductId = reptileProductId;
 	}
 
-	public String getBrand() {
-		return brand;
+	public String getBrandId() {
+		return brandId;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setBrandId(String brandId) {
+		this.brandId = brandId;
 	}
 
 	public String getBrandName() {
@@ -168,12 +170,12 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 		this.sellingPrice = sellingPrice;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getCategoryName() {
@@ -230,7 +232,7 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 
 	public static final String REPTILE_PRODUCT_ID = "reptile_product_id";
 
-	public static final String BRAND = "brand";
+	public static final String BRAND_ID = "brand_id";
 
 	public static final String BRAND_NAME = "brand_name";
 
@@ -242,7 +244,7 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 
 	public static final String SELLING_PRICE = "selling_price";
 
-	public static final String CATEGORY = "category";
+	public static final String CATEGORY_ID = "category_id";
 
 	public static final String CATEGORY_NAME = "category_name";
 
@@ -267,13 +269,13 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 			"id=" + id +
 			", productId=" + productId +
 			", reptileProductId=" + reptileProductId +
-			", brand=" + brand +
+			", brandId=" + brandId +
 			", brandName=" + brandName +
 			", title=" + title +
 			", weight=" + weight +
 			", image=" + image +
 			", sellingPrice=" + sellingPrice +
-			", category=" + category +
+			", categoryId=" + categoryId +
 			", categoryName=" + categoryName +
 			", detail=" + detail +
 			", state=" + state +
