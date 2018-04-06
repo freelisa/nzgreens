@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 @TableName("agent_rebate")
 public class AgentRebate extends Model<AgentRebate> {

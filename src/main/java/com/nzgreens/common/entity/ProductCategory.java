@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 @TableName("product_category")
 public class ProductCategory extends Model<ProductCategory> {

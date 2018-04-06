@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 @TableName("withdraw_record")
 public class WithdrawRecord extends Model<WithdrawRecord> {
@@ -26,6 +26,11 @@ public class WithdrawRecord extends Model<WithdrawRecord> {
      */
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
+    /**
+     * 代理用户ID
+     */
+	@TableField("user_agent_id")
+	private Long userAgentId;
     /**
      * 用户id
      */
@@ -53,6 +58,14 @@ public class WithdrawRecord extends Model<WithdrawRecord> {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getUserAgentId() {
+		return userAgentId;
+	}
+
+	public void setUserAgentId(Long userAgentId) {
+		this.userAgentId = userAgentId;
 	}
 
 	public Long getUserId() {
@@ -89,6 +102,8 @@ public class WithdrawRecord extends Model<WithdrawRecord> {
 
 	public static final String ID = "id";
 
+	public static final String USER_AGENT_ID = "user_agent_id";
+
 	public static final String USER_ID = "user_id";
 
 	public static final String AMOUNT = "amount";
@@ -106,6 +121,7 @@ public class WithdrawRecord extends Model<WithdrawRecord> {
 	public String toString() {
 		return "WithdrawRecord{" +
 			"id=" + id +
+			", userAgentId=" + userAgentId +
 			", userId=" + userId +
 			", amount=" + amount +
 			", createTime=" + createTime +

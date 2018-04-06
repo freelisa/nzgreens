@@ -149,4 +149,15 @@ public class DateUtil {
 		SimpleDateFormat fort = new SimpleDateFormat("yyyyMMddHHmmss");
 		return fort.format(date);
 	}
+
+
+	/**
+	 * 格式化时间指定：yyyyMMddHHmmss
+	 * @param date
+	 * @return yyyy
+	 */
+	public static String parseFullDateString(Date date) {
+		SimpleDateFormat fort = new SimpleDateFormat("yyMMddHHmmss");
+		return fort.format(date);
+	}
 }

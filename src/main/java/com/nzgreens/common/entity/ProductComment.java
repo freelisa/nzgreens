@@ -15,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 @TableName("product_comment")
 public class ProductComment extends Model<ProductComment> {

@@ -1,8 +1,6 @@
 package com.nzgreens.common.entity;
 
-import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
@@ -10,37 +8,30 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 购物车
+ * 商品品牌表
  * </p>
  *
  * @author sylar
  * @since 2018-04-06
  */
-@TableName("shopping_cart")
-public class ShoppingCart extends Model<ShoppingCart> {
+@TableName("product_brand")
+public class ProductBrand extends Model<ProductBrand> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键id
+     * 品牌id
      */
-	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
-     * 用户id
+     * 品牌名称
      */
-	@TableField("user_id")
-	private Long userId;
+	private String name;
     /**
-     * 商品id
+     * 是否有效（1：有效 0：无效）
      */
-	@TableField("product_id")
-	private Long productId;
-    /**
-     * 商品数量
-     */
-	@TableField("product_number")
-	private Long productNumber;
+	@TableField("is_valid")
+	private Integer isValid;
     /**
      * 创建时间
      */
@@ -61,28 +52,20 @@ public class ShoppingCart extends Model<ShoppingCart> {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public String getName() {
+		return name;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Long getProductId() {
-		return productId;
+	public Integer getIsValid() {
+		return isValid;
 	}
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
-
-	public Long getProductNumber() {
-		return productNumber;
-	}
-
-	public void setProductNumber(Long productNumber) {
-		this.productNumber = productNumber;
+	public void setIsValid(Integer isValid) {
+		this.isValid = isValid;
 	}
 
 	public Date getCreateTime() {
@@ -103,11 +86,9 @@ public class ShoppingCart extends Model<ShoppingCart> {
 
 	public static final String ID = "id";
 
-	public static final String USER_ID = "user_id";
+	public static final String NAME = "name";
 
-	public static final String PRODUCT_ID = "product_id";
-
-	public static final String PRODUCT_NUMBER = "product_number";
+	public static final String IS_VALID = "is_valid";
 
 	public static final String CREATE_TIME = "create_time";
 
@@ -120,11 +101,10 @@ public class ShoppingCart extends Model<ShoppingCart> {
 
 	@Override
 	public String toString() {
-		return "ShoppingCart{" +
+		return "ProductBrand{" +
 			"id=" + id +
-			", userId=" + userId +
-			", productId=" + productId +
-			", productNumber=" + productNumber +
+			", name=" + name +
+			", isValid=" + isValid +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			"}";

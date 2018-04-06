@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 @TableName("agent_products")
 public class AgentProducts extends Model<AgentProducts> {
@@ -27,10 +27,10 @@ public class AgentProducts extends Model<AgentProducts> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
-     * 用户id
+     * 代理用户id
      */
-	@TableField("user_id")
-	private Long userId;
+	@TableField("user_agent_id")
+	private Long userAgentId;
     /**
      * 商品id
      */
@@ -60,12 +60,12 @@ public class AgentProducts extends Model<AgentProducts> {
 		this.id = id;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public Long getUserAgentId() {
+		return userAgentId;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setUserAgentId(Long userAgentId) {
+		this.userAgentId = userAgentId;
 	}
 
 	public Long getProductId() {
@@ -102,7 +102,7 @@ public class AgentProducts extends Model<AgentProducts> {
 
 	public static final String ID = "id";
 
-	public static final String USER_ID = "user_id";
+	public static final String USER_AGENT_ID = "user_agent_id";
 
 	public static final String PRODUCT_ID = "product_id";
 
@@ -121,7 +121,7 @@ public class AgentProducts extends Model<AgentProducts> {
 	public String toString() {
 		return "AgentProducts{" +
 			"id=" + id +
-			", userId=" + userId +
+			", userAgentId=" + userAgentId +
 			", productId=" + productId +
 			", price=" + price +
 			", createTime=" + createTime +

@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 public class Products extends Model<Products> {
 
@@ -30,9 +30,10 @@ public class Products extends Model<Products> {
      */
 	private String title;
     /**
-     * 品牌
+     * 品牌id
      */
-	private String brand;
+	@TableField("brand_id")
+	private Long brandId;
     /**
      * 商品重量(单位：克)
      */
@@ -69,6 +70,11 @@ public class Products extends Model<Products> {
      */
 	private BigDecimal score;
     /**
+     * 销量
+     */
+	@TableField("sales_volume")
+	private Long salesVolume;
+    /**
      * 是否有效(1:有效 0:无效)
      */
 	@TableField("is_valid")
@@ -101,12 +107,12 @@ public class Products extends Model<Products> {
 		this.title = title;
 	}
 
-	public String getBrand() {
-		return brand;
+	public Long getBrandId() {
+		return brandId;
 	}
 
-	public void setBrand(String brand) {
-		this.brand = brand;
+	public void setBrandId(Long brandId) {
+		this.brandId = brandId;
 	}
 
 	public Long getWeight() {
@@ -173,6 +179,14 @@ public class Products extends Model<Products> {
 		this.score = score;
 	}
 
+	public Long getSalesVolume() {
+		return salesVolume;
+	}
+
+	public void setSalesVolume(Long salesVolume) {
+		this.salesVolume = salesVolume;
+	}
+
 	public Integer getIsValid() {
 		return isValid;
 	}
@@ -201,7 +215,7 @@ public class Products extends Model<Products> {
 
 	public static final String TITLE = "title";
 
-	public static final String BRAND = "brand";
+	public static final String BRAND_ID = "brand_id";
 
 	public static final String WEIGHT = "weight";
 
@@ -219,6 +233,8 @@ public class Products extends Model<Products> {
 
 	public static final String SCORE = "score";
 
+	public static final String SALES_VOLUME = "sales_volume";
+
 	public static final String IS_VALID = "is_valid";
 
 	public static final String CREATE_TIME = "create_time";
@@ -235,7 +251,7 @@ public class Products extends Model<Products> {
 		return "Products{" +
 			"id=" + id +
 			", title=" + title +
-			", brand=" + brand +
+			", brandId=" + brandId +
 			", weight=" + weight +
 			", image=" + image +
 			", costPrice=" + costPrice +
@@ -244,6 +260,7 @@ public class Products extends Model<Products> {
 			", detail=" + detail +
 			", stock=" + stock +
 			", score=" + score +
+			", salesVolume=" + salesVolume +
 			", isValid=" + isValid +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +

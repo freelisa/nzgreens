@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-05
+ * @since 2018-04-06
  */
 @TableName("products_crawl")
 public class ProductsCrawl extends Model<ProductsCrawl> {
@@ -40,6 +40,11 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
      * 品牌
      */
 	private String brand;
+    /**
+     * 品牌名称
+     */
+	@TableField("brand_name")
+	private String brandName;
     /**
      * title
      */
@@ -121,6 +126,14 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
 	}
 
 	public String getTitle() {
@@ -219,6 +232,8 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 
 	public static final String BRAND = "brand";
 
+	public static final String BRAND_NAME = "brand_name";
+
 	public static final String TITLE = "title";
 
 	public static final String WEIGHT = "weight";
@@ -253,6 +268,7 @@ public class ProductsCrawl extends Model<ProductsCrawl> {
 			", productId=" + productId +
 			", reptileProductId=" + reptileProductId +
 			", brand=" + brand +
+			", brandName=" + brandName +
 			", title=" + title +
 			", weight=" + weight +
 			", image=" + image +
