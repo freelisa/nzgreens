@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzgreens.common.mapper.ShoppingCartMapper">
+
+    <select id="selectShoppingCart" resultType="com.nzgreens.common.entity.extend.ShoppingCartDTO">
+        SELECT
+            sc.id,
+            sc.product_number productNumber,
+            products.title,
+            products.image,
+            ap.price AS agentPrice,
+            products.cost_price costPrice,
+            products.selling_price sellingPrice
+        FROM
+            shopping_cart sc
+        LEFT JOIN (
+            SELECT
+                ap.product_id,
+                ap.price
+            FROM
+                agent_products ap
+            WHERE
+                ap.user_agent_id = 1
+        ) ap ON sc.product_id = ap.product_id
+        LEFT JOIN products ON sc.product_id = products.id AND products.is_valid = 1
+        WHERE
+            sc.user_id = 1
+    </select>
+
+</mapper>
