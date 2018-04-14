@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzgreens.common.mapper.ProductsMapper">
+    <select id="fuzzySearch"
+            parameterType="java.lang.String"
+            resultType="com.nzgreens.common.entity.extend.ProductFuzzyDTO">
+        SELECT
+        products.id,
+        products.title
+        FROM
+        products
+        WHERE
+        MATCH (title) AGAINST(#{productFuzzyWord} IN BOOLEAN MODE)
+        ORDER BY score LIMIT 10
+    </select>
+
+    <select id="selectUserProducts"
+            parameterType="java.lang.Long"
+            resultType="com.nzgreens.common.entity.extend.UserProductItemDTO">
+       SELECT
+            products.id,
+            products.title,
+            products.image,
+            products.selling_price sellingPrice,
+            products.sales_volume salesVolume,
+            ap.price agentPrice
+        FROM
+        products
+        LEFT JOIN (
+          SELECT
+              ap.price,
+              ap.product_id
+          FROM
+            agent_products ap
+          WHERE
+            ap.agent_user_id = #{agentUserId}) ap
+        ON ap.product_id = products.id
+    </select>
+
+</mapper>

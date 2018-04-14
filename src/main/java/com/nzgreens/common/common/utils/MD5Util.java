@@ -21,17 +21,21 @@ public class MD5Util {
 		return hexDigits[d1] + hexDigits[d2];
 	}
 
-	public static String MD5Encode(String origin, String charsetname) {
+	public static String MD5Encode(String origin) {
+		return MD5Encode(origin,null);
+	}
+
+	public static String MD5Encode(String origin, String charsetName) {
 		String resultString = null;
 		try {
 			resultString = new String(origin);
 			MessageDigest md = MessageDigest.getInstance("MD5");
-			if (charsetname == null || "".equals(charsetname))
+			if (charsetName == null || "".equals(charsetName))
 				resultString = byteArrayToHexString(md.digest(resultString
 						.getBytes()));
 			else
 				resultString = byteArrayToHexString(md.digest(resultString
-						.getBytes(charsetname)));
+						.getBytes(charsetName)));
 		} catch (Exception exception) {
 		}
 		return resultString;

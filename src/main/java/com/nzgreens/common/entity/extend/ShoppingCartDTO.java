@@ -12,7 +12,7 @@ public class ShoppingCartDTO implements Serializable {
     private Integer productNumber;
     private String title;
     private String image;
-    private Integer costPrice;
+    private String weight;
     private Integer sellingPrice;
 
     public Long getId() {
@@ -55,12 +55,12 @@ public class ShoppingCartDTO implements Serializable {
         this.image = image;
     }
 
-    public Integer getCostPrice() {
-        return costPrice;
+    public String getWeight() {
+        return weight;
     }
 
-    public void setCostPrice(Integer costPrice) {
-        this.costPrice = costPrice;
+    public void setWeight(String weight) {
+        this.weight = weight;
     }
 
     public Integer getSellingPrice() {
@@ -79,7 +79,7 @@ public class ShoppingCartDTO implements Serializable {
                 ", productNumber=" + productNumber +
                 ", title='" + title + '\'' +
                 ", image='" + image + '\'' +
-                ", costPrice=" + costPrice +
+                ", weight='" + weight + '\'' +
                 ", sellingPrice=" + sellingPrice +
                 '}';
     }

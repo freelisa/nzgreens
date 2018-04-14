@@ -21,11 +21,11 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
 
     /**
      * 获取代理用户购物车列表
-     * @param userAgentId
+     * @param agentId
      * @param page
      * @return
      */
-    List<UserShoppingCartDTO> selectAgentShoppingCart(@Param("userAgentId") Long userAgentId, Pagination page);
+    List<UserShoppingCartDTO> selectAgentShoppingCart(@Param("agentId") Long agentId, Pagination page);
 
     /**
      * 获取用户购物车列表

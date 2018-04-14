@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-06
+ * @since 2018-04-14
  */
 public class Users extends Model<Users> {
 
@@ -33,7 +33,7 @@ public class Users extends Model<Users> {
      */
 	private String password;
     /**
-     * 用户类型(1:普通用户 2:代理)
+     * 用户类型(0:系统 1:普通用户 2:代理)
      */
 	private Integer type;
     /**

@@ -1,11 +1,14 @@
 package com.nzgreens.common.common.enums;
 
+import com.nzgreens.common.entity.Users;
+
 /**
  * 用户类型枚举类
  * Created by sylar on 2018/4/6.
  * @author sylar
  */
 public enum UserTypeEnum {
+    _SYSTEM(0,"系统"),
     _USER(1,"用户"),
     _AGENT(2,"代理"),;
 
@@ -23,5 +26,17 @@ public enum UserTypeEnum {
 
     public String getDescription() {
         return description;
+    }
+
+    /**
+     * 是否是代理身份
+     * @param users
+     * @return
+     */
+    public static boolean isAgent (Users users){
+        if (users == null) {
+            return false;
+        }
+        return _AGENT.getType().equals(users.getType());
     }
 }
