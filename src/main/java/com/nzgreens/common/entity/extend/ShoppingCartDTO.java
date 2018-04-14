@@ -3,14 +3,15 @@ package com.nzgreens.common.entity.extend;
 import java.io.Serializable;
 
 /**
- * Created by sylar on 2018/4/7.
+ * Created by sylar on 2018/4/9.
+ * @author sylar
  */
 public class ShoppingCartDTO implements Serializable {
     private Long id;
+    private Long productId;
     private Integer productNumber;
     private String title;
     private String image;
-    private Integer agentPrice;
     private Integer costPrice;
     private Integer sellingPrice;
 
@@ -20,6 +21,14 @@ public class ShoppingCartDTO implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public Integer getProductNumber() {
@@ -46,14 +55,6 @@ public class ShoppingCartDTO implements Serializable {
         this.image = image;
     }
 
-    public Integer getAgentPrice() {
-        return agentPrice;
-    }
-
-    public void setAgentPrice(Integer agentPrice) {
-        this.agentPrice = agentPrice;
-    }
-
     public Integer getCostPrice() {
         return costPrice;
     }
@@ -68,5 +69,18 @@ public class ShoppingCartDTO implements Serializable {
 
     public void setSellingPrice(Integer sellingPrice) {
         this.sellingPrice = sellingPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "ShoppingCartDTO{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", productNumber=" + productNumber +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", costPrice=" + costPrice +
+                ", sellingPrice=" + sellingPrice +
+                '}';
     }
 }

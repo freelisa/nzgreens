@@ -2,15 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nzgreens.common.mapper.ShoppingCartMapper">
 
-    <select id="selectShoppingCart" resultType="com.nzgreens.common.entity.extend.ShoppingCartDTO">
+    <select id="">
+
+    </select>
+    <select id="selectAgentShoppingCart"
+            parameterType="com.nzgreens.common.entity.UserAgent"
+            resultType="com.nzgreens.common.entity.extend.ShoppingCartDTO">
         SELECT
+        sc.id,
+        products.id productId,
+        sc.product_number productNumber,
+        products.title,
+        products.image,
+        products.cost_price costPrice,
+        products.selling_price sellingPrice
+        FROM
+        shopping_cart sc
+        LEFT JOIN products ON sc.product_id = products.id AND products.is_valid = 1
+        WHERE
+        sc.user_id = #{userAgent.userId}
+    </select>
+
+    <select id="selectShoppingCart"
+            parameterType="com.nzgreens.common.entity.UserAgent"
+            resultType="com.nzgreens.common.entity.extend.UserShoppingCartDTO">
+         SELECT
             sc.id,
+            products.id productId,
             sc.product_number productNumber,
             products.title,
             products.image,
-            ap.price AS agentPrice,
             products.cost_price costPrice,
-            products.selling_price sellingPrice
+            products.selling_price sellingPrice,
+            ap.price AS agentPrice
         FROM
             shopping_cart sc
         LEFT JOIN (
@@ -20,11 +44,11 @@
             FROM
                 agent_products ap
             WHERE
-                ap.user_agent_id = 1
+                ap.user_agent_id = #{userAgent.userAgentId}
         ) ap ON sc.product_id = ap.product_id
         LEFT JOIN products ON sc.product_id = products.id AND products.is_valid = 1
         WHERE
-            sc.user_id = 1
+            sc.user_id = #{userAgent.userId}
     </select>
 
 </mapper>
