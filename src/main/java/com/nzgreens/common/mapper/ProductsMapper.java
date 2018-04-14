@@ -3,9 +3,11 @@ package com.nzgreens.common.mapper;
 import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.nzgreens.common.entity.Products;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.nzgreens.common.entity.extend.UserProductDetailRequest;
+import com.nzgreens.common.entity.extend.ProductDetailDTO;
 import com.nzgreens.common.entity.extend.ProductFuzzyDTO;
+import com.nzgreens.common.entity.extend.UserProductDetailDTO;
 import com.nzgreens.common.entity.extend.UserProductItemDTO;
-import com.nzgreens.common.entity.extend.UserShoppingCartDTO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -27,7 +29,6 @@ public interface ProductsMapper extends BaseMapper<Products> {
      */
     List<ProductFuzzyDTO> fuzzySearch(@Param("productFuzzyWord") String productFuzzyWord);
 
-
     /**
      * 获取用户商品
      * @param agentUserId
@@ -35,4 +36,18 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @return
      */
     List<UserProductItemDTO> selectUserProducts(@Param("agentUserId") Long agentUserId, Pagination page);
+
+    /**
+     * 代理用户商品详情
+     * @param productId
+     * @return
+     */
+    ProductDetailDTO selectProductDetail(@Param("productId") Long productId);
+
+    /**
+     * 用户商品详情
+     * @param detailRequest
+     * @return
+     */
+    UserProductDetailDTO selectUserProductDetail(UserProductDetailRequest detailRequest);
 }

@@ -37,4 +37,55 @@
         ON ap.product_id = products.id
     </select>
 
+    <select id="selectProductDetail"
+            parameterType="java.lang.Long"
+            resultType="com.nzgreens.common.entity.extend.ProductDetailDTO">
+        SELECT
+            products.id,
+            products.title,
+            products.image,
+            products.selling_price sellingPrice,
+            products.sales_volume salesVolume,
+            products.cost_price costPrice,
+            products.detail,
+            products.stock,
+            products.weight,
+            product_brand.name brandName
+        FROM
+          products
+        LEFT JOIN
+          product_brand
+        ON
+          product_brand.id = products.brand_id
+        WHERE products.id = ${productId}
+    </select>
+
+
+    <select id="selectUserProductDetail"
+            parameterType="com.nzgreens.common.entity.extend.UserProductDetailRequest"
+            resultType="com.nzgreens.common.entity.extend.UserProductDetailDTO">
+        SELECT
+            products.id,
+            products.title,
+            products.image,
+            products.selling_price sellingPrice,
+            products.sales_volume salesVolume,
+            products.cost_price costPrice,
+            products.detail,
+            products.stock,
+            products.weight,
+            product_brand.name brandName,
+            agent_products.price agentPrice
+        FROM
+          products
+        LEFT JOIN
+          product_brand
+        ON
+          product_brand.id = products.brand_id
+        LEFT JOIN
+          agent_products
+        ON
+          agent_products.product_id = products.id
+        WHERE products.id = ${productId}
+    </select>
 </mapper>

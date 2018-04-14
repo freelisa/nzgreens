@@ -213,6 +213,12 @@
             <artifactId>joda-time</artifactId>
             <version>${joda-time.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
         <!--ActiveMQ-->
         <!--<dependency>-->
         <!--<groupId>org.apache.activemq</groupId>-->
