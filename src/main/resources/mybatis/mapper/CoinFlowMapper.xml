@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzgreens.common.mapper.poss.CoinFlowMapper">
+    <!-- 查询流水 -->
+    <select id="selectCoinFlowForPage" parameterType="com.nzgreens.common.form.CoinFlowForm" resultType="com.nzgreens.common.entity.poss.CoinFlowModel">
+        SELECT
+            l.id,
+            l.record_id recordId,
+            l.user_id userId,
+            u.telephone,
+            l.type,
+            l.`before`,
+            l.amount,
+            l.`after`,
+            l.create_time createTime
+        FROM
+            account_logs l,
+            users u
+        WHERE
+            l.user_id = u.id
+            <if test="userId != null">
+                and l.user_id = #{userId}
+            </if>
+            <if test="telephone != null and telephone != ''">
+                and u.telephone = #{telephone}
+            </if>
+            <if test="type != null">
+                and l.type = #{type}
+            </if>
+            <if test="startTime != null and startTime != ''">
+                and l.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != ''">
+                and l.create_time &lt;= #{endTime}
+            </if>
+    </select>
+</mapper>
