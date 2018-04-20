@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author sylar
  */
 public class BaseResponse<T> implements Serializable {
-    private boolean success;
+    private boolean success = true;
     private String code;
     private String msg;
     private T data;
