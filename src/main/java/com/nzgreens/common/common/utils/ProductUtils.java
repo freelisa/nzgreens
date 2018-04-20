@@ -28,7 +28,7 @@ public class ProductUtils {
      * @param productWeight
      * @return  "35.0（单位：元）"
      */
-    public String getFreightSetting (Long productWeight){
+    public String getFreightSetting (Integer productWeight){
         ProductFreight productFreight = null;
         try {
             productFreight = freightLoadingCache.get(key);
