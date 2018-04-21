@@ -29,14 +29,7 @@ public class ProductUtils {
      * @return  "35.0（单位：元）"
      */
     public String getFreightSetting (Integer productWeight){
-        ProductFreight productFreight = null;
-        try {
-            productFreight = freightLoadingCache.get(key);
-        } catch (ExecutionException e) {
-
-        } finally {
-            productFreight = productFreightService.selectOne(null);
-        }
+        ProductFreight productFreight = this.getProductFreight();
         if (productFreight == null) {
             return "";
         }
@@ -47,8 +40,31 @@ public class ProductUtils {
         return String.valueOf(productFreight.getFreight());
     }
 
-    public String getSerice (){
+    public String getService (){
         return service;
+    }
+
+    /**
+     * 计算商品运费
+     * @param productTotalWeight
+     * @return
+     */
+    public Long computeFreight (Long productTotalWeight){
+        ProductFreight productFreight = this.getProductFreight();
+        if (productTotalWeight >= productFreight.getProductWeight()) {
+            return productTotalWeight * productFreight.getFreight();
+        }
+        return productFreight.getFreight();
+    }
+
+    private ProductFreight getProductFreight(){
+        ProductFreight productFreight = null;
+        try {
+            productFreight = freightLoadingCache.get(key);
+        } catch (ExecutionException e) {
+            productFreight = productFreightService.selectOne(null);
+        }
+        return productFreight;
     }
 
     private LoadingCache<String,ProductFreight> freightLoadingCache = CacheBuilder.newBuilder()

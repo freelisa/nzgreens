@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-06
+ * @since 2018-04-21
  */
 @TableName("user_order")
 public class UserOrder extends Model<UserOrder> {
@@ -22,7 +22,7 @@ public class UserOrder extends Model<UserOrder> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 用户id
      */
@@ -61,9 +61,14 @@ public class UserOrder extends Model<UserOrder> {
      */
 	private Integer type;
     /**
-     * 订单状态(-1：拒绝 0:未处理 1:已处理 2:已上传运单凭证)
+     * 订单状态(-1：已关闭 0:未处理 1:已处理)
      */
 	private Integer status;
+    /**
+     * 代理状态（-1：已关闭 0：待处理 1：已处理 2：已上传物流凭证）
+     */
+	@TableField("agent_status")
+	private Integer agentStatus;
     /**
      * 创建时间
      */
@@ -76,11 +81,11 @@ public class UserOrder extends Model<UserOrder> {
 	private Date updateTime;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -156,6 +161,14 @@ public class UserOrder extends Model<UserOrder> {
 		this.status = status;
 	}
 
+	public Integer getAgentStatus() {
+		return agentStatus;
+	}
+
+	public void setAgentStatus(Integer agentStatus) {
+		this.agentStatus = agentStatus;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -192,6 +205,8 @@ public class UserOrder extends Model<UserOrder> {
 
 	public static final String STATUS = "status";
 
+	public static final String AGENT_STATUS = "agent_status";
+
 	public static final String CREATE_TIME = "create_time";
 
 	public static final String UPDATE_TIME = "update_time";
@@ -214,6 +229,7 @@ public class UserOrder extends Model<UserOrder> {
 			", price=" + price +
 			", type=" + type +
 			", status=" + status +
+			", agentStatus=" + agentStatus +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			"}";

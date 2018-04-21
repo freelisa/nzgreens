@@ -7,14 +7,14 @@ import java.util.List;
  * Created by sylar on 2018/4/15.
  */
 public class UserOrderDTO implements Serializable {
-    private Long orderNumber;
+    private String orderNumber;
     private List<Long> orderId;
 
-    public Long getOrderNumber() {
+    public String getOrderNumber() {
         return orderNumber;
     }
 
-    public void setOrderNumber(Long orderNumber) {
+    public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
     }
 

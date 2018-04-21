@@ -1,5 +1,7 @@
 package com.nzgreens.common.service;
 
+import com.nzgreens.common.common.enums.DeliveryModeEnum;
+import com.nzgreens.common.common.result.BaseResponse;
 import com.nzgreens.common.entity.ShoppingCart;
 import com.nzgreens.common.entity.UserOrder;
 import com.baomidou.mybatisplus.service.IService;
@@ -18,5 +20,14 @@ import java.util.List;
  */
 public interface UserOrderService extends IService<UserOrder> {
 
-    UserOrderDTO generatorOrder(List<ShoppingCart> shoppingCartList, Users user);
+    /**
+     * 用户购物车下单生成订单
+     * @param shoppingCartList
+     * @param user
+     * @param deliveryModeEnum
+     * @param addressId
+     * @return
+     */
+    BaseResponse<UserOrderDTO> generatorOrderTx(List<ShoppingCart> shoppingCartList, Users user,
+                                                 DeliveryModeEnum deliveryModeEnum, Long addressId);
 }

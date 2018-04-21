@@ -8,6 +8,8 @@ import com.nzgreens.common.entity.extend.ProductDetailDTO;
 import com.nzgreens.common.entity.extend.ProductFuzzyDTO;
 import com.nzgreens.common.entity.extend.UserProductDetailDTO;
 import com.nzgreens.common.entity.extend.UserProductItemDTO;
+import com.nzgreens.common.entity.service.ProductPrice;
+import com.nzgreens.common.entity.service.UserProductPriceSearch;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -50,4 +52,11 @@ public interface ProductsMapper extends BaseMapper<Products> {
      * @return
      */
     UserProductDetailDTO selectUserProductDetail(UserProductDetailRequest detailRequest);
+
+    /**
+     * 用户商品价格
+     * @param priceSearch
+     * @return
+     */
+    List<ProductPrice> selectUserProductPrice(UserProductPriceSearch priceSearch);
 }

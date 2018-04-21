@@ -1,19 +1,16 @@
 package com.nzgreens.common.common.enums;
 
 /**
- * 用户订单状态枚举类
- * Created by sylar on 2018/4/6.
- * @author sylar
+ * Created by sylar on 2018/4/21.
  */
-public enum UserOrderStatusEnum {
-    _REFUSED(-1,"订单已拒绝"),
-    _PENDING(0,"待处理"),
-    _PROCESSED(1,"已处理");
+public enum  OrderCommentStatusEnum {
+    _NOT_COMMENTED(0,"未评价"),
+    _COMMENTED(1,"已评价"),;
 
     private Integer status;
     private String description;
 
-    UserOrderStatusEnum(Integer status, String description) {
+    OrderCommentStatusEnum(Integer status, String description) {
         this.status = status;
         this.description = description;
     }

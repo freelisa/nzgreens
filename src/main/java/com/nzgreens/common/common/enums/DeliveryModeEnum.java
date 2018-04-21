@@ -30,4 +30,13 @@ public enum DeliveryModeEnum {
     public String getAgentMode() {
         return agentMode;
     }
+
+    public static DeliveryModeEnum getMode(Integer deliveryMode){
+        for (DeliveryModeEnum deliveryModeEnum : DeliveryModeEnum.values()) {
+            if (deliveryModeEnum.getType().equals(deliveryMode)) {
+                return deliveryModeEnum;
+            }
+        }
+        return null;
+    }
 }

@@ -24,4 +24,13 @@ public enum UserOrderTypeEnum {
     public String getDescription() {
         return description;
     }
+
+    public static UserOrderTypeEnum getUserOrderType(Integer type){
+        for (UserOrderTypeEnum userOrderTypeEnum : UserOrderTypeEnum.values()) {
+            if (userOrderTypeEnum.getType().equals(type)) {
+                return userOrderTypeEnum;
+            }
+        }
+        return null;
+    }
 }
