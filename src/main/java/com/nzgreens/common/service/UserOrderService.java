@@ -29,5 +29,5 @@ public interface UserOrderService extends IService<UserOrder> {
      * @return
      */
     BaseResponse<UserOrderDTO> generatorOrderTx(List<ShoppingCart> shoppingCartList, Users user,
-                                                 DeliveryModeEnum deliveryModeEnum, Long addressId);
+                                                 DeliveryModeEnum deliveryModeEnum, Long addressId) throws Exception;
 }

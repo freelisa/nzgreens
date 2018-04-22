@@ -39,4 +39,16 @@ public enum UserTypeEnum {
         }
         return _AGENT.getType().equals(users.getType());
     }
+
+    public static UserTypeEnum getUserTypeEnum (Users users){
+        if (users == null) {
+            return _USER;
+        }
+        for (UserTypeEnum userTypeEnum : UserTypeEnum.values()) {
+            if (userTypeEnum.getType().equals(users.getType())) {
+                return userTypeEnum;
+            }
+        }
+        return _USER;
+    }
 }

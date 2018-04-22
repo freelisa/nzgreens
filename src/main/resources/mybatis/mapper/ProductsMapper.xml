@@ -60,62 +60,65 @@
         WHERE products.id = ${productId}
     </select>
 
-
-    <select id="selectUserProductPrice"
+    <select id="selectUserProductDetail"
             parameterType="com.nzgreens.common.entity.extend.UserProductDetailRequest"
             resultType="com.nzgreens.common.entity.extend.UserProductDetailDTO">
         SELECT
-            products.id,
-            products.title,
-            products.image,
-            products.selling_price sellingPrice,
-            products.sales_volume salesVolume,
-            products.cost_price costPrice,
-            products.detail,
-            products.stock,
-            products.weight,
-            product_brand.name brandName,
-            ap.price agentPrice
+        products.id,
+        products.title,
+        products.image,
+        products.selling_price sellingPrice,
+        products.sales_volume salesVolume,
+        products.cost_price costPrice,
+        products.detail,
+        products.stock,
+        products.weight,
+        product_brand.name brandName,
+        ap.price agentPrice
         FROM
-          products
+        products
         LEFT JOIN
-          product_brand
+        product_brand
         ON
-          product_brand.id = products.brand_id
+        product_brand.id = products.brand_id
         LEFT JOIN(
-          SELECT
-              ap.price,
-              ap.product_id
-          FROM
-            agent_products ap
-          WHERE
-            ap.agent_user_id = #{agentUserId}) ap
+        SELECT
+        ap.price,
+        ap.product_id
+        FROM
+        agent_products ap
+        WHERE
+        ap.agent_user_id = #{agentUserId}) ap
         ON
-           ap.product_id = products.id
+        ap.product_id = products.id
         WHERE products.id = ${productId}
     </select>
 
-
-
-    <select id="selectUserProductDetail"
+    <select id="selectUserProductPrice"
             parameterType="com.nzgreens.common.entity.service.UserProductPriceSearch"
             resultType="com.nzgreens.common.entity.service.ProductPrice">
         SELECT
-          products.id productId,
-          products.selling_price sellingPrice,
-          ap.price agentPrice
+            products.id productId,
+            products.selling_price sellingPrice,
+            ap.price agentPrice
         FROM
           products
         LEFT JOIN(
-          SELECT
-              ap.price,
-              ap.product_id
-          FROM
-            agent_products ap
-          WHERE
-            ap.agent_user_id = #{agentUserId}) ap
+            SELECT
+                ap.price,
+                ap.product_id
+            FROM
+              agent_products ap
+            WHERE
+              ap.agent_user_id = #{agentUserId}) ap
         ON
-           ap.product_id = products.id
-        WHERE products.id = ${productId}
+          ap.product_id = products.id
+        <if test="productIdList != null">
+        WHERE products.id IN
+            <foreach collection="productIdList" index="index" item="productId" open="(" separator="," close=")">
+                 #{productId}
+            </foreach>
+        </if>
     </select>
+
 </mapper>

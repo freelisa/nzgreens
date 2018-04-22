@@ -16,6 +16,9 @@ import com.nzgreens.common.service.*;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -63,11 +66,13 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
      * @param shoppingCartList
      * @param user
      * @param deliveryModeEnum
-     *@param addressId @return
+     * @param addressId
+     * @return
      */
+    @Transactional(rollbackFor = java.lang.Exception.class)
     @Override
     public BaseResponse<UserOrderDTO> generatorOrderTx(List<ShoppingCart> shoppingCartList, Users user,
-                                         DeliveryModeEnum deliveryModeEnum, Long addressId) {
+                                         DeliveryModeEnum deliveryModeEnum, Long addressId) throws Exception{
         BaseResponse<UserOrderDTO> response = new BaseResponse<>();
         List<Long> productIdList = this.getProductList(shoppingCartList);
         List<Products> productsList = productsService.selectBatchIds(productIdList);
@@ -77,9 +82,6 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
             response.setSuccess(true);
             return response;
         }
-        Map<Long,Long> productPriceMap = new HashMap<>(productIdList.size()*3/4);
-        Map<Long,Long> productWeightMap = new HashMap<>(productIdList.size()*3/4);
-        Map<Long,Long> productRealPriceMap = new HashMap<>(productIdList.size()*3/4);
         Map<Long,Long> productNumberMap = this.getProductNumber(shoppingCartList);
         boolean continued = this.checkAndLockStock(productsList,productNumberMap);
         if (!continued) {
@@ -87,14 +89,17 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
             response.setMsg("库存不足，无法下单");
             return response;
         }
+        Map<Long,Long> productPriceMap = new HashMap<>(productIdList.size()*3/4);
+        Map<Long,Long> productWeightMap = new HashMap<>(productIdList.size()*3/4);
+        Map<Long,Long> productRealPriceMap = new HashMap<>(productIdList.size()*3/4);
         this.setProductPriceAndWeight(productsList, productPriceMap, productRealPriceMap, productWeightMap);
+
         UserAgent userAgent = null;
         if (!UserTypeEnum.isAgent(user)) {
             userAgent = userAgentBo.getUserAgent(user.getId());
             List<ProductPrice> productPriceList = this.searchProductPrice(userAgent, productIdList);
             this.setProductPriceMap(productPriceList,productPriceMap,productRealPriceMap);
         }
-
         String orderNumber = OrderNumberUtils.generatorOderNumber(user.getId(), deliveryModeEnum);
         //生成商品对应订单
         List<Orders> ordersList = new ArrayList<>(productIdList.size());
@@ -119,14 +124,16 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
 
         //生成账户流水
         AccountLogs userLogs = new AccountLogs();
+        userLogs.setUserId(user.getId());
         userLogs.setBefore(user.getBalance());
         userLogs.setAmount(-userOrder.getPrice());
         userLogs.setAfter(userLogs.getBefore() + userLogs.getAmount());
-        userLogs.setRecordId(userOrder.getId());
         userLogs.setType(AccountLogsTypeEnum._ORDER.getType());
         //用户余额
         user.setBalance(userLogs.getAfter());
-
+        if (user.getBalance() < 0) {
+           throw new Exception("金币不足，无法下单！");
+        }
         //上级流水
         Users higherUser = null;
         //代理下单系统用户
@@ -137,10 +144,10 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
             higherUser = usersService.selectById(userAgent.getAgentUserId());
         }
         AccountLogs higherLogs = new AccountLogs();
+        higherLogs.setUserId(higherUser.getId());
         higherLogs.setBefore(higherUser.getBalance());
         higherLogs.setAmount(userOrder.getPrice());
         higherLogs.setAfter(higherLogs.getBefore() + higherLogs.getAmount());
-        higherLogs.setRecordId(userOrder.getId());
         higherLogs.setType(AccountLogsTypeEnum._ORDER.getType());
         //上级余额
         higherUser.setBalance(higherLogs.getAfter());
@@ -154,14 +161,17 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
         usersList.add(higherUser);
 
         //数据库操作开始
+        productsService.updateBatchById(productsList);
+        //更新用户账户
+        usersService.updateBatchById(usersList);
         //更新用户购物车
         shoppingCartService.deleteBatchIds(this.getShoppingCartList(shoppingCartList));
         //新增用户订单
         ordersService.insertBatch(ordersList);
         this.insert(userOrder);
-        //更新用户账户
-        usersService.updateBatchById(usersList);
         //新增用户流水
+        userLogs.setRecordId(userOrder.getId());
+        higherLogs.setRecordId(userOrder.getId());
         accountLogsService.insertBatch(accountLogsList);
         UserOrderDTO userOrderDTO = new UserOrderDTO();
         userOrderDTO.setOrderNumber(orderNumber);
@@ -184,8 +194,7 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
                 return false;
             }
         }
-        productsService.updateBatchById(productsList);
-        return true;
+        return productsService.updateBatchById(productsList);
     }
 
     private List<Long> getOrderIdList(List<Orders> ordersList) {
@@ -208,6 +217,7 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
     private UserOrder generatorUserOrder(Users user, DeliveryModeEnum deliveryModeEnum, Long addressId,
                                          Long freight, String orderNumber, Long productTotalPrice) {
         UserOrder userOrder = new UserOrder();
+        userOrder.setUserId(user.getId());
         //订单号
         userOrder.setOrderNumber(orderNumber);
         //运费
@@ -219,7 +229,7 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
         //用户订单状态
         userOrder.setStatus(UserOrderStatusEnum._PENDING.getStatus());
         //代理订单状态
-        userOrder.setStatus(UserOrderAgentStatusEnum._PENDING.getStatus());
+        userOrder.setAgentStatus(UserOrderAgentStatusEnum._PENDING.getStatus());
         userOrder.setType((UserTypeEnum.isAgent(user) && DeliveryModeEnum._SELF.equals(deliveryModeEnum)) ?
                 UserOrderTypeEnum._SYSTEM.getType() : UserOrderTypeEnum._AGENT.getType());
         userOrder.setDeliveryMode(deliveryModeEnum.getType());

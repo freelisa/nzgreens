@@ -105,7 +105,8 @@
         <property name="dataSource" ref="dataSource"/>
     </bean>
 
-    <!-- 事务管理 属性 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+  <!--  &lt;!&ndash; 事务管理 属性 &ndash;&gt;
     <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
         <tx:attributes>
             <tx:method name="add*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
@@ -118,21 +119,21 @@
             <tx:method name="delete*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
             <tx:method name="remove*" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
             <tx:method name="repair" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
-
+&lt;!&ndash;
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="load*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="search*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="datagrid*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="datagrid*" propagation="REQUIRED" read-only="true"/>&ndash;&gt;
 
-            <tx:method name="*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="*" propagation="REQUIRED"/>
         </tx:attributes>
     </tx:advice>
 
-    <!-- 配置切面 -->
+    &lt;!&ndash; 配置切面 &ndash;&gt;
     <aop:config>
-        <aop:pointcut id="transactionPointcut" expression="execution(* com.nzgreens.common.service..*.*(..))"/>
+        <aop:pointcut id="transactionPointcut" expression="execution(* com.nzgreens.common.service.impl..*.*(..))"/>
         <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice"/>
-    </aop:config>
+    </aop:config>-->
 
 </beans>
