@@ -3,31 +3,23 @@ package com.nzgreens.common.entity.extend;
 import java.util.List;
 
 /**
- * Created by sylar on 2018/4/22.
+ * Created by sylar on 2018/4/30.
  */
-public class UserOrderItemDTO {
-
+public class OrderManageItemDTO {
     private String orderNumber;
-    private Integer userOrderStatus;
     private String productPrice;
     private String freight;
     private String price;
-    private List<OrderItemDTO> orderItemList;
+    private Integer userOrderStatus;
+    private String nickname;
 
+    private List<ManageItemDTO> orderItemList;
     public String getOrderNumber() {
         return orderNumber;
     }
 
     public void setOrderNumber(String orderNumber) {
         this.orderNumber = orderNumber;
-    }
-
-    public Integer getUserOrderStatus() {
-        return userOrderStatus;
-    }
-
-    public void setUserOrderStatus(Integer userOrderStatus) {
-        this.userOrderStatus = userOrderStatus;
     }
 
     public String getProductPrice() {
@@ -53,11 +45,28 @@ public class UserOrderItemDTO {
     public void setPrice(String price) {
         this.price = price;
     }
-    public List<OrderItemDTO> getOrderItemList() {
+
+    public Integer getUserOrderStatus() {
+        return userOrderStatus;
+    }
+
+    public void setUserOrderStatus(Integer userOrderStatus) {
+        this.userOrderStatus = userOrderStatus;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public List<ManageItemDTO> getOrderItemList() {
         return orderItemList;
     }
 
-    public void setOrderItemList(List<OrderItemDTO> orderItemList) {
+    public void setOrderItemList(List<ManageItemDTO> orderItemList) {
         this.orderItemList = orderItemList;
     }
 }

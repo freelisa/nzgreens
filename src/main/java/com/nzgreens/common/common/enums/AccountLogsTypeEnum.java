@@ -6,13 +6,13 @@ package com.nzgreens.common.common.enums;
  * @author sylar
  */
 public enum AccountLogsTypeEnum {
-    _CHARGE(1,"用户/代理充值"),
-    _ORDER_REBATE(2,"订单代理返佣"),
-    _ORDER(3,"用户/代理下单"),
-    _REFUND(4,"用户/代理退款"),
-    _MONTH_REBATE(5,"代理月返佣"),
+    _CHARGE(1,"充值"),
+    _ORDER_REBATE(2,"订单返佣"),
+    _ORDER(3,"下单"),
+    _REFUND(4,"退款"),
+    _MONTH_REBATE(5,"月返佣"),
     _WITHDRAW(6,"提现"),
-    _ORDER_REFUSED(7,"订单拒绝"),;
+    _ORDER_REFUSED(7,"订单驳回"),;
 
     private Integer type;
     private String description;

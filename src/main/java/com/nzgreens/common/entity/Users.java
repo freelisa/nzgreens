@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-14
+ * @since 2018-05-01
  */
 public class Users extends Model<Users> {
 
@@ -32,6 +32,14 @@ public class Users extends Model<Users> {
      * 登录密码（MD5）
      */
 	private String password;
+    /**
+     * 用户昵称
+     */
+	private String nickname;
+    /**
+     * 用户头像
+     */
+	private String avatar;
     /**
      * 用户类型(0:系统 1:普通用户 2:代理)
      */
@@ -81,6 +89,22 @@ public class Users extends Model<Users> {
 		this.password = password;
 	}
 
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
 	public Integer getType() {
 		return type;
 	}
@@ -127,6 +151,10 @@ public class Users extends Model<Users> {
 
 	public static final String PASSWORD = "password";
 
+	public static final String NICKNAME = "nickname";
+
+	public static final String AVATAR = "avatar";
+
 	public static final String TYPE = "type";
 
 	public static final String BALANCE = "balance";
@@ -148,6 +176,8 @@ public class Users extends Model<Users> {
 			"id=" + id +
 			", telephone=" + telephone +
 			", password=" + password +
+			", nickname=" + nickname +
+			", avatar=" + avatar +
 			", type=" + type +
 			", balance=" + balance +
 			", isValid=" + isValid +

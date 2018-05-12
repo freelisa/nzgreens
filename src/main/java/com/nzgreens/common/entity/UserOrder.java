@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-21
+ * @since 2018-05-07
  */
 @TableName("user_order")
 public class UserOrder extends Model<UserOrder> {
@@ -39,10 +39,17 @@ public class UserOrder extends Model<UserOrder> {
 	@TableField("delivery_mode")
 	private Integer deliveryMode;
     /**
-     * 收货地址id
+     * 收货地址
      */
-	@TableField("address_id")
-	private Long addressId;
+	private String address;
+    /**
+     * 联系认
+     */
+	private String contact;
+    /**
+     * 联系电话
+     */
+	private String telephone;
     /**
      * 商品总金额（单位：分）
      */
@@ -61,14 +68,9 @@ public class UserOrder extends Model<UserOrder> {
      */
 	private Integer type;
     /**
-     * 订单状态(-1：已关闭 0:未处理 1:已处理)
+     * 订单状态(-1：已关闭 0:未处理 1:已处理 2：已上传物流凭证)
      */
 	private Integer status;
-    /**
-     * 代理状态（-1：已关闭 0：待处理 1：已处理 2：已上传物流凭证）
-     */
-	@TableField("agent_status")
-	private Integer agentStatus;
     /**
      * 创建时间
      */
@@ -113,12 +115,28 @@ public class UserOrder extends Model<UserOrder> {
 		this.deliveryMode = deliveryMode;
 	}
 
-	public Long getAddressId() {
-		return addressId;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAddressId(Long addressId) {
-		this.addressId = addressId;
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
 
 	public Long getProductPrice() {
@@ -161,14 +179,6 @@ public class UserOrder extends Model<UserOrder> {
 		this.status = status;
 	}
 
-	public Integer getAgentStatus() {
-		return agentStatus;
-	}
-
-	public void setAgentStatus(Integer agentStatus) {
-		this.agentStatus = agentStatus;
-	}
-
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -193,7 +203,11 @@ public class UserOrder extends Model<UserOrder> {
 
 	public static final String DELIVERY_MODE = "delivery_mode";
 
-	public static final String ADDRESS_ID = "address_id";
+	public static final String ADDRESS = "address";
+
+	public static final String CONTACT = "contact";
+
+	public static final String TELEPHONE = "telephone";
 
 	public static final String PRODUCT_PRICE = "product_price";
 
@@ -204,8 +218,6 @@ public class UserOrder extends Model<UserOrder> {
 	public static final String TYPE = "type";
 
 	public static final String STATUS = "status";
-
-	public static final String AGENT_STATUS = "agent_status";
 
 	public static final String CREATE_TIME = "create_time";
 
@@ -223,13 +235,14 @@ public class UserOrder extends Model<UserOrder> {
 			", userId=" + userId +
 			", orderNumber=" + orderNumber +
 			", deliveryMode=" + deliveryMode +
-			", addressId=" + addressId +
+			", address=" + address +
+			", contact=" + contact +
+			", telephone=" + telephone +
 			", productPrice=" + productPrice +
 			", freight=" + freight +
 			", price=" + price +
 			", type=" + type +
 			", status=" + status +
-			", agentStatus=" + agentStatus +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			"}";

@@ -14,12 +14,22 @@ import org.springframework.stereotype.Component;
 public class UserBo {
     @Autowired
     private UsersService usersService;
-
+    @Autowired
+    private UserAgentBo userAgentBo;
     /**
      * 获取系统用户
      * @return
      */
     public Users getSystemUser(){
         return usersService.selectOne(new EntityWrapper<Users>().eq(Users.TYPE , UserTypeEnum._SYSTEM.getType()));
+    }
+
+    /**
+     * 获取用户代理用户
+     * @param userId
+     * @return
+     */
+    public Users getAgentUser(Long userId){
+        return usersService.selectById(userAgentBo.getUserAgent(userId));
     }
 }

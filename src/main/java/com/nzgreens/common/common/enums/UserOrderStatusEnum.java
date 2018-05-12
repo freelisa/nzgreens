@@ -6,9 +6,10 @@ package com.nzgreens.common.common.enums;
  * @author sylar
  */
 public enum UserOrderStatusEnum {
-    _REFUSED(-1,"订单已拒绝"),
+    _REFUSED(-1,"已驳回"),
     _PENDING(0,"待处理"),
-    _PROCESSED(1,"已处理");
+    _PROCESSED(1,"已处理/代发货"),
+    _DONE(2,"已上传凭证");
 
     private Integer status;
     private String description;
@@ -24,5 +25,13 @@ public enum UserOrderStatusEnum {
 
     public String getDescription() {
         return description;
+    }
+
+    public static boolean isOrderCompleted (Integer orderStatus, UserTypeEnum userTypeEnum){
+        if (UserTypeEnum._AGENT.equals(userTypeEnum)) {
+            return _DONE.getStatus().equals(orderStatus);
+        } else {
+            return _PROCESSED.getStatus().equals(orderStatus);
+        }
     }
 }

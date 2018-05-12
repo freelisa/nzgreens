@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzgreens.common.mapper.OrdersMapper">
+
+    <select id="selectOrderItems" resultType="com.nzgreens.common.entity.extend.OrderItemDTO" parameterType="java.lang.String">
+        SELECT
+            products.title,
+            products.image,
+            products.weight,
+            orders.comment_status commentStatus,
+            orders.id orderId,
+            if(orders.order_id IS NULL , 1, 0) commentShow
+        FROM
+            orders
+        LEFT JOIN products ON products.id = orders.product_id
+        WHERE
+          orders.order_number = #{orderNumber}
+    </select>
+
+    <select id="selectManageItems" resultType="com.nzgreens.common.entity.extend.ManageItemDTO" parameterType="java.lang.String">
+        SELECT
+        products.title,
+        products.image,
+        products.weight,
+        orders.id orderId
+        FROM
+        orders
+        LEFT JOIN products ON products.id = orders.product_id
+        WHERE
+        orders.order_number = #{orderNumber}
+    </select>
+</mapper>

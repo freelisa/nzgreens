@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nzgreens.common.mapper.UsersMapper">
+
+    <select id="selectUserForPage" resultType="com.nzgreens.common.entity.extend.UserManageItemDTO"
+            parameterType="java.lang.Long">
+        SELECT
+            users.id userId,
+            users.avatar,
+            users.nickname,
+            users.balance
+        FROM
+          user_agent ua
+        INNER JOIN
+          users
+           ON
+           users.id = ua.user_id AND users.is_valid = 1
+        WHERE ua.agent_user_id = #{agentUserId}
+        ORDER BY ua.create_time DESC
+    </select>
+
+</mapper>

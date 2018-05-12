@@ -2,6 +2,11 @@ package com.nzgreens.common.mapper;
 
 import com.nzgreens.common.entity.Orders;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.nzgreens.common.entity.extend.ManageItemDTO;
+import com.nzgreens.common.entity.extend.OrderItemDTO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,18 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  */
 public interface OrdersMapper extends BaseMapper<Orders> {
 
+    /**
+     * 通过orderNumber查询order item list
+     * @param orderNumber
+     * @return
+     */
+    List<OrderItemDTO> selectOrderItems(@Param("orderNumber") String orderNumber);
+
+
+    /**
+     * 通过orderNumber查询 manage item list
+     * @param orderNumber
+     * @return
+     */
+    List<ManageItemDTO> selectManageItems(@Param("orderNumber") String orderNumber);
 }

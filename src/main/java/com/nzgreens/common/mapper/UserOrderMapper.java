@@ -3,7 +3,10 @@ package com.nzgreens.common.mapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.nzgreens.common.entity.UserOrder;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.nzgreens.common.entity.extend.OrderManageItemDTO;
+import com.nzgreens.common.entity.extend.UserOrderItemDTO;
 import com.nzgreens.common.entity.extend.UserOrderRequest;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,5 +26,13 @@ public interface UserOrderMapper extends BaseMapper<UserOrder> {
      * @param orderRequest
      * @return
      */
-    List selectUserOrderList(Page page, UserOrderRequest orderRequest);
+    List<UserOrderItemDTO> selectUserOrderList(Page page, UserOrderRequest orderRequest);
+
+    /**
+     * 代理订单管理列表
+     * @param page
+     * @param userList
+     * @return
+     */
+    List<OrderManageItemDTO> selectUserOrderManegeForPage(Page page, @Param("userList") List<Long> userList);
 }

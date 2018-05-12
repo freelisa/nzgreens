@@ -6,9 +6,8 @@ package com.nzgreens.common.common.enums;
  * @author sylar
  */
 public enum OrderStatusEnum {
-    _PENDING(0,"未合并"),
-    _PROCESSED(1,"已合并"),
-    _DONE(2,"已处理"),;
+    _PENDING(0,"未处理"),
+    _DONE(1,"已处理"),;
 
     private Integer status;
     private String description;

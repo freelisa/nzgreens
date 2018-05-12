@@ -6,8 +6,8 @@ package com.nzgreens.common.common.enums;
 public enum  UserOrderAgentStatusEnum  {
     _REFUSED(-1,"订单已拒绝"),
     _PENDING(0,"待处理"),
-    _PROCESSED(1,"已处理"),
-    _DONE(2,"已上传凭证"),;
+    _PROCESSED(1,"已通过"),
+    _DONE(2,"已合并"),;
 
     private Integer status;
     private String description;

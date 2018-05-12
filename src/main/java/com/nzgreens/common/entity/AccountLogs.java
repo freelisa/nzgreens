@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-06
+ * @since 2018-05-04
  */
 @TableName("account_logs")
 public class AccountLogs extends Model<AccountLogs> {
@@ -52,6 +52,11 @@ public class AccountLogs extends Model<AccountLogs> {
      * 流水后余额
      */
 	private Long after;
+    /**
+     * 是否有效（1：有效 0：无效）
+     */
+	@TableField("is_valid")
+	private Integer isValid;
     /**
      * 创建时间
      */
@@ -120,6 +125,14 @@ public class AccountLogs extends Model<AccountLogs> {
 		this.after = after;
 	}
 
+	public Integer getIsValid() {
+		return isValid;
+	}
+
+	public void setIsValid(Integer isValid) {
+		this.isValid = isValid;
+	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -150,6 +163,8 @@ public class AccountLogs extends Model<AccountLogs> {
 
 	public static final String AFTER = "after";
 
+	public static final String IS_VALID = "is_valid";
+
 	public static final String CREATE_TIME = "create_time";
 
 	public static final String UPDATE_TIME = "update_time";
@@ -169,6 +184,7 @@ public class AccountLogs extends Model<AccountLogs> {
 			", before=" + before +
 			", amount=" + amount +
 			", after=" + after +
+			", isValid=" + isValid +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			"}";

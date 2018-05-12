@@ -6,7 +6,6 @@
             resultType="com.nzgreens.common.entity.extend.UserOrderItemDTO">
         SELECT
             uo.order_number orderNumber,
-            uo.`status` userOrderStatus,
             uo.product_price productPrice,
             uo.freight,
             uo.price,
@@ -14,25 +13,74 @@
             products.image,
             products.weight,
             orders.comment_status commentStatus,
-            orders.`status` orderStatus
+            uo.`status` userOrderStatus,
+            if(orders.order_id IS NULL , 1, 0) commentShow
         FROM
           user_order uo
         LEFT JOIN
           orders
         ON
-        orders.order_number = uo.order_number
+          orders.order_number = uo.order_number
         LEFT JOIN
           products
         ON
           products.id = orders.product_id
         WHERE
-        uo.user_id = #{userId}
+          uo.user_id IN
+        <foreach collection="userList" index="index" item="user" open="(" separator="," close=")">
+            #{user}
+        </foreach>
         <if test="statusList != null">
             AND uo.`status` IN
             <foreach collection="statusList" index="index" item="status" open="(" separator="," close=")">
                 #{status}
             </foreach>
         </if>
+        <if test="commentStatus != null">
+            AND orders.comment_status  = #{commentStatus}
+        </if>
+        <if test="orderType != null">
+            AND uo.type  = #{orderType}
+        </if>
+        ORDER BY uo.update_time DESC
+    </select>
+
+
+    <select id="selectUserOrderManegeForPage"
+            parameterType="java.util.List"
+            resultType="com.nzgreens.common.entity.extend.OrderManageItemDTO">
+        SELECT
+            orders.id order_id,
+            uo.order_number orderNumber,
+            uo.product_price productPrice,
+            uo.freight,
+            uo.price,
+            products.title,
+            products.image,
+            products.weight,
+            uo.agent_status agentStatus,
+            users.nickname
+        FROM
+          user_order uo
+        LEFT JOIN
+          orders
+        ON
+          orders.order_number = uo.order_number
+        LEFT JOIN
+          products
+        ON
+          products.id = orders.product_id
+        LEFT JOIN
+          users
+        ON
+          users.id = uo.user_id
+        WHERE
+          uo.user_id IN
+        <foreach collection="userList" index="index" item="user" open="(" separator="," close=")">
+            #{user}
+        </foreach>
+        AND uo.type  = 1
+        ORDER BY uo.update_time DESC
     </select>
 
 </mapper>

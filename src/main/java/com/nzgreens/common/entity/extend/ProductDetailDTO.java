@@ -1,6 +1,7 @@
 package com.nzgreens.common.entity.extend;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by sylar on 2018/4/14.
@@ -10,7 +11,7 @@ public class ProductDetailDTO extends ProductItemDTO implements Serializable {
    // private Long id;
 
    // private String image;
-
+    private List<String> imageList;
     private String costPrice;
    // private String sellingPrice;
     private Long stock;
@@ -27,6 +28,14 @@ public class ProductDetailDTO extends ProductItemDTO implements Serializable {
     private Integer weight;
     private String commentNumber;
 
+
+    public List<String> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(List<String> imageList) {
+        this.imageList = imageList;
+    }
 
     public String getCostPrice() {
         return costPrice;

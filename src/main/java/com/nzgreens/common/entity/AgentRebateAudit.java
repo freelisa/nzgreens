@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-06
+ * @since 2018-05-01
  */
 @TableName("agent_rebate_audit")
 public class AgentRebateAudit extends Model<AgentRebateAudit> {
@@ -32,10 +32,10 @@ public class AgentRebateAudit extends Model<AgentRebateAudit> {
 	@TableField("agent_user_id")
 	private Long agentUserId;
     /**
-     * 订单号
+     * 用户订单id
      */
-	@TableField("order_number")
-	private Long orderNumber;
+	@TableField("user_order_id")
+	private Long userOrderId;
     /**
      * 返佣类型（1：订单返佣 2：月返佣）
      */
@@ -82,12 +82,12 @@ public class AgentRebateAudit extends Model<AgentRebateAudit> {
 		this.agentUserId = agentUserId;
 	}
 
-	public Long getOrderNumber() {
-		return orderNumber;
+	public Long getUserOrderId() {
+		return userOrderId;
 	}
 
-	public void setOrderNumber(Long orderNumber) {
-		this.orderNumber = orderNumber;
+	public void setUserOrderId(Long userOrderId) {
+		this.userOrderId = userOrderId;
 	}
 
 	public Integer getType() {
@@ -142,7 +142,7 @@ public class AgentRebateAudit extends Model<AgentRebateAudit> {
 
 	public static final String AGENT_USER_ID = "agent_user_id";
 
-	public static final String ORDER_NUMBER = "order_number";
+	public static final String USER_ORDER_ID = "user_order_id";
 
 	public static final String TYPE = "type";
 
@@ -166,7 +166,7 @@ public class AgentRebateAudit extends Model<AgentRebateAudit> {
 		return "AgentRebateAudit{" +
 			"id=" + id +
 			", agentUserId=" + agentUserId +
-			", orderNumber=" + orderNumber +
+			", userOrderId=" + userOrderId +
 			", type=" + type +
 			", rebatePrice=" + rebatePrice +
 			", actualRebatePrice=" + actualRebatePrice +
