@@ -3,11 +3,16 @@ package com.nzgreens.common.common.utils;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.nzgreens.common.common.enums.DeliveryModeEnum;
+import com.nzgreens.common.common.enums.UserTypeEnum;
 import com.nzgreens.common.entity.ProductFreight;
+import com.nzgreens.common.entity.extend.ProductFreightDTO;
 import com.nzgreens.common.service.ProductFreightService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -24,20 +29,26 @@ public class ProductUtils {
     private ProductFreightService productFreightService;
 
     /**
+     * 获取商品单位运费
+     * @return
+     */
+    public ProductFreightDTO getFreightUnit(){
+        return this.getProductFreight();
+    }
+
+    /**
      * 获取运费
-     * @param productWeight
      * @return  "35.0（单位：元）"
      */
-    public String getFreightSetting (Integer productWeight){
-        ProductFreight productFreight = this.getProductFreight();
+    public String getFreightSetting (){
+      /*  ProductFreightDTO productFreight = this.getFreightUnit();
         if (productFreight == null) {
-            return "";
+            return "35/kg";
         }
-        if (productWeight >= productFreight.getProductWeight()) {
-            //TODO 转元
-            return String.valueOf(productWeight * productFreight.getFreight());
-        }
-        return String.valueOf(productFreight.getFreight());
+        BigDecimal price = new BigDecimal(1000).divide(new BigDecimal(productFreight.getProductWeight()));
+        String fright = price.multiply(new BigDecimal(productFreight.getFreight())).toString();
+        return fright+"/kg";*/
+       return "免运费";
     }
 
     public String getService (){
@@ -49,22 +60,38 @@ public class ProductUtils {
      * @param productTotalWeight
      * @return
      */
-    public Long computeFreight (Long productTotalWeight){
-        ProductFreight productFreight = this.getProductFreight();
-        if (productTotalWeight >= productFreight.getProductWeight()) {
-            return productTotalWeight * productFreight.getFreight();
-        }
-        return productFreight.getFreight();
-    }
-
-    private ProductFreight getProductFreight(){
+    public Long computeFreight (Long productTotalWeight, DeliveryModeEnum deliveryModeEnum, UserTypeEnum userTypeEnum){
         ProductFreight productFreight = null;
         try {
             productFreight = freightLoadingCache.get(key);
         } catch (ExecutionException e) {
             productFreight = productFreightService.selectOne(null);
         }
-        return productFreight;
+        if (productTotalWeight == null || productTotalWeight == 0L) {
+            return productFreight.getFreight();
+        }
+        if (DeliveryModeEnum._DELIVERY.equals(deliveryModeEnum)) {
+            return productTotalWeight * productFreight.getFreight() / productFreight.getProductWeight();
+        }
+        if (productTotalWeight >= productFreight.getProductWeight()) {
+            return productTotalWeight * productFreight.getFreight() / productFreight.getProductWeight();
+        }
+        return productFreight.getFreight();
+    }
+
+    private ProductFreightDTO getProductFreight(){
+        ProductFreightDTO freightDTO = new ProductFreightDTO();
+        ProductFreight productFreight = null;
+        try {
+            productFreight = freightLoadingCache.get(key);
+        } catch (ExecutionException e) {
+            productFreight = productFreightService.selectOne(null);
+        }
+        if (productFreight != null) {
+            BeanUtils.copyProperties(productFreight, freightDTO);
+        }
+        freightDTO.setFreight(PriceUtils.convertPriceToYuanNumber(productFreight.getFreight()));
+        return freightDTO;
     }
 
     private LoadingCache<String,ProductFreight> freightLoadingCache = CacheBuilder.newBuilder()
@@ -75,7 +102,14 @@ public class ProductUtils {
             new CacheLoader<String, ProductFreight>() {
                 @Override
                 public ProductFreight load(String key) throws Exception {
-                    return productFreightService.selectOne(null);
+                    ProductFreight freightDTO = new ProductFreight();
+                    freightDTO.setProductWeight(1000L);
+                    freightDTO.setFreight(3500L);
+                    ProductFreight productFreight = productFreightService.selectOne(null);
+                    if (productFreight != null) {
+                        BeanUtils.copyProperties(productFreight, freightDTO);
+                    }
+                    return freightDTO;
                 }
             }
     );

@@ -30,7 +30,7 @@ public class OrderCertificate extends Model<OrderCertificate> {
      * 订单号
      */
 	@TableField("order_number")
-	private Long orderNumber;
+	private String orderNumber;
     /**
      * 凭证URL
      */
@@ -56,11 +56,11 @@ public class OrderCertificate extends Model<OrderCertificate> {
 		this.id = id;
 	}
 
-	public Long getOrderNumber() {
+	public String getOrderNumber() {
 		return orderNumber;
 	}
 
-	public void setOrderNumber(Long orderNumber) {
+	public void setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 	}
 

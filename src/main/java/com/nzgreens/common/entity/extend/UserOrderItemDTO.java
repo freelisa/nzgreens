@@ -12,6 +12,8 @@ public class UserOrderItemDTO {
     private String productPrice;
     private String freight;
     private String price;
+    private Integer productTotalNumber;
+    private Boolean canResend;
     private List<OrderItemDTO> orderItemList;
 
     public String getOrderNumber() {
@@ -53,6 +55,23 @@ public class UserOrderItemDTO {
     public void setPrice(String price) {
         this.price = price;
     }
+
+    public Integer getProductTotalNumber() {
+        return productTotalNumber;
+    }
+
+    public void setProductTotalNumber(Integer productTotalNumber) {
+        this.productTotalNumber = productTotalNumber;
+    }
+
+    public Boolean getCanResend() {
+        return canResend;
+    }
+
+    public void setCanResend(Boolean canResend) {
+        this.canResend = canResend;
+    }
+
     public List<OrderItemDTO> getOrderItemList() {
         return orderItemList;
     }

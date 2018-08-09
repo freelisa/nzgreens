@@ -1,43 +1,39 @@
 package com.nzgreens.common.entity;
 
+import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
 /**
  * <p>
- * 商品分类表
+ * 搜索关键字
  * </p>
  *
  * @author sylar
- * @since 2018-04-06
+ * @since 2018-05-25
  */
-@TableName("product_category")
-public class ProductCategory extends Model<ProductCategory> {
+@TableName("search_keyword")
+public class SearchKeyword extends Model<SearchKeyword> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 分类id
+     * 自增ID
      */
+	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
     /**
-     * 父类id
+     * 提示关键词
      */
-	@TableField("parent_id")
-	private Long parentId;
+	private String keyword;
     /**
-     * 分类名称
-     */
-	private String name;
-    /**
-     * 是否有效(1:有效 0:无效)
+     * 是否有效（1：有效 0：无效）
      */
 	@TableField("is_valid")
-	@TableLogic
 	private Integer isValid;
     /**
      * 创建时间
@@ -59,20 +55,12 @@ public class ProductCategory extends Model<ProductCategory> {
 		this.id = id;
 	}
 
-	public Long getParentId() {
-		return parentId;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public Integer getIsValid() {
@@ -101,9 +89,7 @@ public class ProductCategory extends Model<ProductCategory> {
 
 	public static final String ID = "id";
 
-	public static final String PARENT_ID = "parent_id";
-
-	public static final String NAME = "name";
+	public static final String KEYWORD = "keyword";
 
 	public static final String IS_VALID = "is_valid";
 
@@ -118,10 +104,9 @@ public class ProductCategory extends Model<ProductCategory> {
 
 	@Override
 	public String toString() {
-		return "ProductCategory{" +
+		return "SearchKeyword{" +
 			"id=" + id +
-			", parentId=" + parentId +
-			", name=" + name +
+			", keyword=" + keyword +
 			", isValid=" + isValid +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +

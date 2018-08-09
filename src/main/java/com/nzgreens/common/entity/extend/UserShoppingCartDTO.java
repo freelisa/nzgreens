@@ -8,13 +8,13 @@ import java.io.Serializable;
  * @author sylar
  */
 public class UserShoppingCartDTO extends ShoppingCartDTO implements Serializable {
-    private Integer agentPrice;
+    private Double agentPrice;
 
-    public Integer getAgentPrice() {
+    public Double getAgentPrice() {
         return agentPrice;
     }
 
-    public void setAgentPrice(Integer agentPrice) {
+    public void setAgentPrice(Double agentPrice) {
         this.agentPrice = agentPrice;
     }
 

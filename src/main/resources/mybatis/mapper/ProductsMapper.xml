@@ -2,16 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nzgreens.common.mapper.ProductsMapper">
     <select id="fuzzySearch"
-            parameterType="java.lang.String"
-            resultType="com.nzgreens.common.entity.extend.ProductFuzzyDTO">
+            parameterType="map"
+            resultType="com.nzgreens.common.entity.extend.UserProductItemDTO">
         SELECT
-        products.id,
-        products.title
+            products.id,
+            products.title,
+            products.image,
+            products.selling_price sellingPrice,
+            products.sales_volume salesVolume
+            <if test="requestMap.agentUserId != null">
+                ,ap.price agentPrice
+            </if>
         FROM
         products
-        WHERE
-        MATCH (title) AGAINST(#{productFuzzyWord} IN BOOLEAN MODE)
-        ORDER BY score LIMIT 10
+            LEFT JOIN (
+            SELECT
+            ap.price,
+            ap.product_id
+            FROM
+            agent_products ap
+            WHERE
+            ap.agent_user_id = ${requestMap.agentUserId}) ap
+            ON ap.product_id = products.id
+        WHERE is_valid = 1
+        <if test="requestMap.productFuzzyWord != null">
+            AND
+            MATCH (products.title) AGAINST(#{requestMap.productFuzzyWord} IN BOOLEAN MODE)
+        </if>
     </select>
 
     <select id="selectUserProducts"
@@ -35,6 +52,7 @@
           WHERE
             ap.agent_user_id = #{agentUserId}) ap
         ON ap.product_id = products.id
+        Where is_valid = 1
     </select>
 
     <select id="selectProductDetail"

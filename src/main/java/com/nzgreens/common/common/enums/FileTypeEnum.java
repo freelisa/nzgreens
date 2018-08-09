@@ -6,8 +6,8 @@ package com.nzgreens.common.common.enums;
  * @author sylar
  */
 public enum  FileTypeEnum {
-    _SHOP("shop","代理商店"),
-    _PRODUCTS("products","商品"),
+    _USER("user","用户"),
+    _PRODUCTS("product","商品"),
     _FREIGHT("freight","订单物流凭证");
 
     private String path;

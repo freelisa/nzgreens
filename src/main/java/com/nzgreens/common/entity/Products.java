@@ -1,5 +1,6 @@
 package com.nzgreens.common.entity;
 
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -78,6 +79,7 @@ public class Products extends Model<Products> {
      * 是否有效(1:有效 0:无效)
      */
 	@TableField("is_valid")
+	@TableLogic
 	private Integer isValid;
     /**
      * 创建时间

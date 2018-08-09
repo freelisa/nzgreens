@@ -1,5 +1,6 @@
 package com.nzgreens.common.entity;
 
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -14,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-05-04
+ * @since 2018-05-13
  */
 @TableName("account_logs")
 public class AccountLogs extends Model<AccountLogs> {
@@ -31,6 +32,11 @@ public class AccountLogs extends Model<AccountLogs> {
      */
 	@TableField("record_id")
 	private Long recordId;
+    /**
+     * 触发用户id
+     */
+	@TableField("trigger_user_id")
+	private Long triggerUserId;
     /**
      * 用户id
      */
@@ -56,6 +62,7 @@ public class AccountLogs extends Model<AccountLogs> {
      * 是否有效（1：有效 0：无效）
      */
 	@TableField("is_valid")
+	@TableLogic
 	private Integer isValid;
     /**
      * 创建时间
@@ -83,6 +90,14 @@ public class AccountLogs extends Model<AccountLogs> {
 
 	public void setRecordId(Long recordId) {
 		this.recordId = recordId;
+	}
+
+	public Long getTriggerUserId() {
+		return triggerUserId;
+	}
+
+	public void setTriggerUserId(Long triggerUserId) {
+		this.triggerUserId = triggerUserId;
 	}
 
 	public Long getUserId() {
@@ -153,6 +168,8 @@ public class AccountLogs extends Model<AccountLogs> {
 
 	public static final String RECORD_ID = "record_id";
 
+	public static final String TRIGGER_USER_ID = "trigger_user_id";
+
 	public static final String USER_ID = "user_id";
 
 	public static final String TYPE = "type";
@@ -179,6 +196,7 @@ public class AccountLogs extends Model<AccountLogs> {
 		return "AccountLogs{" +
 			"id=" + id +
 			", recordId=" + recordId +
+			", triggerUserId=" + triggerUserId +
 			", userId=" + userId +
 			", type=" + type +
 			", before=" + before +

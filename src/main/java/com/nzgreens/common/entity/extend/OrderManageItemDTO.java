@@ -12,6 +12,10 @@ public class OrderManageItemDTO {
     private String price;
     private Integer userOrderStatus;
     private String nickname;
+    private Boolean canAdopt;
+    private Integer totalNumber;
+    private Double agentOrderPrice;
+    private boolean refuseShow;
 
     private List<ManageItemDTO> orderItemList;
     public String getOrderNumber() {
@@ -68,5 +72,37 @@ public class OrderManageItemDTO {
 
     public void setOrderItemList(List<ManageItemDTO> orderItemList) {
         this.orderItemList = orderItemList;
+    }
+
+    public Boolean getCanAdopt() {
+        return canAdopt;
+    }
+
+    public void setCanAdopt(Boolean canAdopt) {
+        this.canAdopt = canAdopt;
+    }
+
+    public Integer getTotalNumber() {
+        return totalNumber;
+    }
+
+    public void setTotalNumber(Integer totalNumber) {
+        this.totalNumber = totalNumber;
+    }
+
+    public Double getAgentOrderPrice() {
+        return agentOrderPrice;
+    }
+
+    public void setAgentOrderPrice(Double agentOrderPrice) {
+        this.agentOrderPrice = agentOrderPrice;
+    }
+
+    public boolean isRefuseShow() {
+        return refuseShow;
+    }
+
+    public void setRefuseShow(boolean refuseShow) {
+        this.refuseShow = refuseShow;
     }
 }

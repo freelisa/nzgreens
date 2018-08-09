@@ -34,4 +34,15 @@ public enum UserOrderStatusEnum {
             return _PROCESSED.getStatus().equals(orderStatus);
         }
     }
+
+    public static Integer getUserOrderStatus(Integer orderStatus, UserTypeEnum userTypeEnum){
+        if (!UserTypeEnum._AGENT.equals(userTypeEnum)) {
+            if (UserOrderStatusEnum._PROCESSED.getStatus().equals(orderStatus)) {
+                return Integer.valueOf(2);
+            }
+            return orderStatus;
+        } else {
+            return orderStatus;
+        }
+    }
 }

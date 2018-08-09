@@ -1,9 +1,12 @@
 package com.nzgreens.common.entity.extend;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Created by sylar on 2018/5/7.
  */
 public class OrderItemDTO extends BaseOrderItem{
+    @JSONField(serialize = false)
     private Integer itemStatus;
     private Integer commentStatus;
     private Boolean commentShow;

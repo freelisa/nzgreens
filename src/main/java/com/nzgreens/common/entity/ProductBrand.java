@@ -3,6 +3,7 @@ package com.nzgreens.common.entity;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import java.io.Serializable;
 
@@ -31,6 +32,7 @@ public class ProductBrand extends Model<ProductBrand> {
      * 是否有效（1：有效 0：无效）
      */
 	@TableField("is_valid")
+	@TableLogic
 	private Integer isValid;
     /**
      * 创建时间

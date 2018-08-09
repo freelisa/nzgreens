@@ -13,7 +13,9 @@ public class ShoppingCartDTO implements Serializable {
     private String title;
     private String image;
     private Integer weight;
-    private Integer sellingPrice;
+    private Double sellingPrice;
+
+    private ProductFreightDTO productFreight;
 
     public Long getId() {
         return id;
@@ -63,12 +65,20 @@ public class ShoppingCartDTO implements Serializable {
         this.weight = weight;
     }
 
-    public Integer getSellingPrice() {
+    public Double getSellingPrice() {
         return sellingPrice;
     }
 
-    public void setSellingPrice(Integer sellingPrice) {
+    public void setSellingPrice(Double sellingPrice) {
         this.sellingPrice = sellingPrice;
+    }
+
+    public ProductFreightDTO getProductFreight() {
+        return productFreight;
+    }
+
+    public void setProductFreight(ProductFreightDTO productFreight) {
+        this.productFreight = productFreight;
     }
 
     @Override

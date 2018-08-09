@@ -1,5 +1,6 @@
 package com.nzgreens.common.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -25,11 +26,13 @@ public class AgentUserShop extends Model<AgentUserShop> {
      * 主键id
      */
 	@TableId(value="id", type= IdType.AUTO)
+	@JSONField(serialize = false)
 	private Long id;
     /**
      * 代理用户id
      */
 	@TableField("agent_user_id")
+	@JSONField(serialize = false)
 	private Long agentUserId;
     /**
      * 商店名称
@@ -45,11 +48,13 @@ public class AgentUserShop extends Model<AgentUserShop> {
      * 创建时间
      */
 	@TableField("create_time")
+	@JSONField(serialize = false)
 	private Date createTime;
     /**
      * 更新时间
      */
 	@TableField("update_time")
+	@JSONField(serialize = false)
 	private Date updateTime;
 
 

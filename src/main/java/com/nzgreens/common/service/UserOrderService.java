@@ -2,6 +2,7 @@ package com.nzgreens.common.service;
 
 import com.nzgreens.common.common.enums.DeliveryModeEnum;
 import com.nzgreens.common.common.result.BaseResponse;
+import com.nzgreens.common.entity.Orders;
 import com.nzgreens.common.entity.ShoppingCart;
 import com.nzgreens.common.entity.UserOrder;
 import com.baomidou.mybatisplus.service.IService;
@@ -10,6 +11,7 @@ import com.nzgreens.common.entity.extend.UserOrderDTO;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * <p>
@@ -27,8 +29,8 @@ public interface UserOrderService extends IService<UserOrder> {
      * @param user
      * @param deliveryModeEnum
      * @param addressId
-     * @exception
      * @return
+     * @throws Exception
      */
     BaseResponse<UserOrderDTO> generatorOrderTx(List<ShoppingCart> shoppingCartList, Users user,
                                                  DeliveryModeEnum deliveryModeEnum, Long addressId) throws Exception;
@@ -41,16 +43,18 @@ public interface UserOrderService extends IService<UserOrder> {
      * @param deliveryModeEnum
      * @param addressId
      * @return
+     * @throws Exception
      */
     BaseResponse<UserOrderDTO> generatorOrderTx(List<Long> productIdList, Map<Long, Long> productNumberMap, Users user,
                                                 DeliveryModeEnum deliveryModeEnum, Long addressId) throws Exception;
+
 
     /**
      * 审核通过订单
      * @param userOrder
      * @param agentUser
-     * @exception
      * @return
+     * @throws Exception
      */
     BaseResponse<UserOrderDTO> auditPassOrderTx(UserOrder userOrder, Users agentUser) throws Exception;
 
@@ -60,4 +64,28 @@ public interface UserOrderService extends IService<UserOrder> {
      * @throws Exception
      */
     void deleteUserOrdersTx(UserOrder userOrder)throws Exception;
+
+
+    /**
+     * 合并订单下单
+     * @param orderIdList
+     * @param orderNumberSet
+     * @param user
+     * @param addressId
+     * @return
+     * @throws Exception
+     */
+    @Deprecated
+    BaseResponse<UserOrderDTO> mergeOrderTx(Set<Long> orderIdList, Set<String> orderNumberSet, Users agentUser, Long addressId) throws Exception;
+
+
+    /**
+     * 合并订单下单
+     * @param ordersList
+     * @param user
+     * @param addressId
+     * @return
+     * @throws Exception
+     */
+    BaseResponse<UserOrderDTO> mergeOrdersTx(List<Orders> ordersList, Users agentUser, Long addressId) throws Exception;
 }

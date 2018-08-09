@@ -9,12 +9,23 @@
             products.weight,
             orders.comment_status commentStatus,
             orders.id orderId,
-            if(orders.order_id IS NULL , 1, 0) commentShow
+            if(orders.order_id IS NULL , 1, 0) commentShow,
+            orders.product_number productNumber,
+            products.id productId,
+            <if test="requestMap.userAgentId != null">
+                IFNULL(agent_products.price,products.selling_price) sellingPrice
+            </if>
+            <if test="requestMap.userAgentId == null">
+                products.selling_price sellingPrice
+            </if>
         FROM
             orders
         LEFT JOIN products ON products.id = orders.product_id
+        <if test="requestMap.userAgentId != null">
+            LEFT JOIN agent_products ON agent_products.product_id = orders.product_id AND agent_products.agent_user_id = #{requestMap.userAgentId}
+        </if>
         WHERE
-          orders.order_number = #{orderNumber}
+          orders.order_number = #{requestMap.orderNumber}
     </select>
 
     <select id="selectManageItems" resultType="com.nzgreens.common.entity.extend.ManageItemDTO" parameterType="java.lang.String">
@@ -22,11 +33,45 @@
         products.title,
         products.image,
         products.weight,
-        orders.id orderId
+        products.selling_Price sellingPrice,
+        orders.id orderId,
+        orders.product_number productNumber,
+        orders.agent_price agentPrice,
+        orders.price productTotalPrice,
+        orders.status orderStatus
         FROM
         orders
         LEFT JOIN products ON products.id = orders.product_id
         WHERE
         orders.order_number = #{orderNumber}
     </select>
+
+    <select id="selectMergeManageItemForPage" resultType="com.nzgreens.common.entity.extend.MergeOrderItem"
+        parameterType="java.util.Map">
+        SELECT
+        products.title,
+        products.image,
+        products.weight,
+        orders.id orderId,
+        orders.product_number productNumber,
+        orders.agent_price productTotalPrice,
+        IFNULL(agent_products.price,products.selling_price) price
+        FROM
+        user_order uo
+        LEFT JOIN orders ON  uo.order_number = orders.order_number AND orders.status = 0
+        LEFT JOIN products ON products.id = orders.product_id
+        LEFT JOIN agent_products ON agent_products.product_id = orders.product_id AND agent_products.agent_user_id = #{requestMap.userAgentId}
+        WHERE
+        <if test="requestMap.userList != null">
+            uo.user_id in
+            <foreach collection="requestMap.userList" item="user" separator="," open="(" close=")">
+                ${user}
+            </foreach>
+            AND
+        </if>
+        uo.status = 0
+        AND delivery_mode = 2
+
+    </select>
+
 </mapper>

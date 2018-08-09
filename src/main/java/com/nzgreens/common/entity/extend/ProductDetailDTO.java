@@ -8,18 +8,11 @@ import java.util.List;
  * 商品详情
  */
 public class ProductDetailDTO extends ProductItemDTO implements Serializable {
-   // private Long id;
-
-   // private String image;
     private List<String> imageList;
     private String costPrice;
-   // private String sellingPrice;
     private Long stock;
 
-   // private String title;
-
     private String freight;
-  //  private String salesVolume;
     private String brand;
 
     private String service;
@@ -28,6 +21,7 @@ public class ProductDetailDTO extends ProductItemDTO implements Serializable {
     private Integer weight;
     private String commentNumber;
 
+    private ProductFreightDTO productFreight;
 
     public List<String> getImageList() {
         return imageList;
@@ -99,5 +93,13 @@ public class ProductDetailDTO extends ProductItemDTO implements Serializable {
 
     public void setCommentNumber(String commentNumber) {
         this.commentNumber = commentNumber;
+    }
+
+    public ProductFreightDTO getProductFreight() {
+        return productFreight;
+    }
+
+    public void setProductFreight(ProductFreightDTO productFreight) {
+        this.productFreight = productFreight;
     }
 }

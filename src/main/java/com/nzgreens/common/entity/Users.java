@@ -1,5 +1,6 @@
 package com.nzgreens.common.entity;
 
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.enums.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -13,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-05-01
+ * @since 2018-06-09
  */
 public class Users extends Model<Users> {
 
@@ -48,10 +49,17 @@ public class Users extends Model<Users> {
      * 余额
      */
 	private Long balance;
+	private String remark;
+    /**
+     * 订单号自增开始
+     */
+	@TableField("last_order_number")
+	private Long lastOrderNumber;
     /**
      * 是否有效(1：有效 0：无效)
      */
 	@TableField("is_valid")
+	@TableLogic
 	private Integer isValid;
     /**
      * 创建时间
@@ -121,6 +129,22 @@ public class Users extends Model<Users> {
 		this.balance = balance;
 	}
 
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Long getLastOrderNumber() {
+		return lastOrderNumber;
+	}
+
+	public void setLastOrderNumber(Long lastOrderNumber) {
+		this.lastOrderNumber = lastOrderNumber;
+	}
+
 	public Integer getIsValid() {
 		return isValid;
 	}
@@ -159,6 +183,10 @@ public class Users extends Model<Users> {
 
 	public static final String BALANCE = "balance";
 
+	public static final String REMARK = "remark";
+
+	public static final String LAST_ORDER_NUMBER = "last_order_number";
+
 	public static final String IS_VALID = "is_valid";
 
 	public static final String CREATE_TIME = "create_time";
@@ -180,6 +208,8 @@ public class Users extends Model<Users> {
 			", avatar=" + avatar +
 			", type=" + type +
 			", balance=" + balance +
+			", remark=" + remark +
+			", lastOrderNumber=" + lastOrderNumber +
 			", isValid=" + isValid +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +

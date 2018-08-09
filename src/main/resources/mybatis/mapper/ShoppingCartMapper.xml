@@ -15,7 +15,7 @@
         products.selling_price sellingPrice
         FROM
         shopping_cart sc
-        LEFT JOIN products ON sc.product_id = products.id AND products.is_valid = 1
+        INNER JOIN products ON sc.product_id = products.id AND products.is_valid = 1
         WHERE
         sc.user_id = #{agentId}
     </select>
@@ -43,7 +43,7 @@
             WHERE
                 ap.agent_user_id = #{agentUserId}
         ) ap ON sc.product_id = ap.product_id
-        LEFT JOIN products ON sc.product_id = products.id AND products.is_valid = 1
+        INNER JOIN products ON sc.product_id = products.id AND products.is_valid = 1
         WHERE
             sc.user_id = #{userId}
     </select>

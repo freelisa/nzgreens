@@ -6,13 +6,13 @@ package com.nzgreens.common.entity.extend;
  * @author sylar
  */
 public class UserProductItemDTO extends ProductItemDTO {
-    private Integer agentPrice;
+    private Double agentPrice;
 
-    public Integer getAgentPrice() {
+    public Double getAgentPrice() {
         return agentPrice;
     }
 
-    public void setAgentPrice(Integer agentPrice) {
+    public void setAgentPrice(Double agentPrice) {
         this.agentPrice = agentPrice;
     }
 

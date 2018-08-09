@@ -48,11 +48,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
         }
         //充值
         if (AccountLogsTypeEnum._CHARGE.equals(logsTypeEnum)) {
-            if (userAgent.getBalance() - amount < 0) {
+/*            if (userAgent.getBalance() - amount < 0) {
                 response.setSuccess(false);
                 response.setMsg("您当前余额不足，无法操作！");
                 return response;
-            }
+            }*/
 
             ChargeRecord chargeRecord = new ChargeRecord();
             chargeRecord.setUserAgentId(userAgent.getId());
@@ -62,6 +62,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             AccountLogs agentLogs = new AccountLogs();
             agentLogs.setUserId(userAgent.getId());
+            agentLogs.setTriggerUserId(userAgent.getId());
             agentLogs.setRecordId(chargeRecord.getId());
             agentLogs.setType(logsTypeEnum.getType());
             agentLogs.setBefore(userAgent.getBalance());
@@ -72,6 +73,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             AccountLogs userLogs = new AccountLogs();
             userLogs.setUserId(users.getId());
+            userLogs.setTriggerUserId(userAgent.getId());
             userLogs.setRecordId(chargeRecord.getId());
             userLogs.setType(logsTypeEnum.getType());
             userLogs.setBefore(users.getBalance());
@@ -85,11 +87,11 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             usersList.add(userAgent);
             usersList.add(users);
         } else if (AccountLogsTypeEnum._WITHDRAW.equals(logsTypeEnum)){
-            if (users.getBalance() - amount < 0) {
+/*            if (users.getBalance() - amount < 0) {
                 response.setSuccess(false);
                 response.setMsg("用户余额不足，无法操作！");
                 return response;
-            }
+            }*/
             WithdrawRecord withdrawRecord = new WithdrawRecord();
             withdrawRecord.setUserAgentId(userAgent.getId());
             withdrawRecord.setUserId(userId);
@@ -98,6 +100,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             AccountLogs agentLogs = new AccountLogs();
             agentLogs.setUserId(userAgent.getId());
+            agentLogs.setTriggerUserId(userAgent.getId());
             agentLogs.setRecordId(withdrawRecord.getId());
             agentLogs.setType(logsTypeEnum.getType());
             agentLogs.setBefore(userAgent.getBalance());
@@ -108,6 +111,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             AccountLogs userLogs = new AccountLogs();
             userLogs.setUserId(users.getId());
+            userLogs.setTriggerUserId(userAgent.getId());
             userLogs.setRecordId(withdrawRecord.getId());
             userLogs.setType(logsTypeEnum.getType());
             userLogs.setBefore(users.getBalance());
@@ -121,13 +125,14 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
             usersList.add(userAgent);
             usersList.add(users);
         } else if (AccountLogsTypeEnum._REFUND.equals(logsTypeEnum)) {
-            if (userAgent.getBalance() - amount < 0) {
+/*            if (userAgent.getBalance() - amount < 0) {
                 response.setSuccess(false);
                 response.setMsg("您当前余额不足，无法操作！");
                 return response;
-            }
+            }*/
             AccountLogs agentLogs = new AccountLogs();
             agentLogs.setUserId(userAgent.getId());
+            agentLogs.setTriggerUserId(userAgent.getId());
             agentLogs.setType(logsTypeEnum.getType());
             agentLogs.setBefore(userAgent.getBalance());
             agentLogs.setAmount(-amount.longValue());
@@ -137,6 +142,7 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, Users> implements
 
             AccountLogs userLogs = new AccountLogs();
             userLogs.setUserId(users.getId());
+            userLogs.setTriggerUserId(userAgent.getId());
             userLogs.setType(logsTypeEnum.getType());
             userLogs.setBefore(users.getBalance());
             userLogs.setAmount(amount.longValue());

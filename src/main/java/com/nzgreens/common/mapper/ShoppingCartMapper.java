@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.plugins.pagination.Pagination;
 import com.nzgreens.common.entity.ShoppingCart;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.nzgreens.common.entity.UserAgent;
+import com.nzgreens.common.entity.extend.ShoppingCartDTO;
 import com.nzgreens.common.entity.extend.UserShoppingCartDTO;
 import org.apache.ibatis.annotations.Param;
 
@@ -25,7 +26,7 @@ public interface ShoppingCartMapper extends BaseMapper<ShoppingCart> {
      * @param page
      * @return
      */
-    List<UserShoppingCartDTO> selectAgentShoppingCart(@Param("agentId") Long agentId, Pagination page);
+    List<ShoppingCartDTO> selectAgentShoppingCart(@Param("agentId") Long agentId, Pagination page);
 
     /**
      * 获取用户购物车列表

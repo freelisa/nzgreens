@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-05-07
+ * @since 2018-05-26
  */
 @TableName("user_order")
 public class UserOrder extends Model<UserOrder> {
@@ -28,6 +28,11 @@ public class UserOrder extends Model<UserOrder> {
      */
 	@TableField("user_id")
 	private Long userId;
+    /**
+     * 代理通过用户订单号
+     */
+	@TableField("user_order_number")
+	private String userOrderNumber;
     /**
      * 订单号
      */
@@ -68,6 +73,11 @@ public class UserOrder extends Model<UserOrder> {
      */
 	private Integer type;
     /**
+     * 物流单号
+     */
+	@TableField("logistics_number")
+	private String logisticsNumber;
+    /**
      * 订单状态(-1：已关闭 0:未处理 1:已处理 2：已上传物流凭证)
      */
 	private Integer status;
@@ -97,6 +107,14 @@ public class UserOrder extends Model<UserOrder> {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public String getUserOrderNumber() {
+		return userOrderNumber;
+	}
+
+	public void setUserOrderNumber(String userOrderNumber) {
+		this.userOrderNumber = userOrderNumber;
 	}
 
 	public String getOrderNumber() {
@@ -171,6 +189,14 @@ public class UserOrder extends Model<UserOrder> {
 		this.type = type;
 	}
 
+	public String getLogisticsNumber() {
+		return logisticsNumber;
+	}
+
+	public void setLogisticsNumber(String logisticsNumber) {
+		this.logisticsNumber = logisticsNumber;
+	}
+
 	public Integer getStatus() {
 		return status;
 	}
@@ -199,6 +225,8 @@ public class UserOrder extends Model<UserOrder> {
 
 	public static final String USER_ID = "user_id";
 
+	public static final String USER_ORDER_NUMBER = "user_order_number";
+
 	public static final String ORDER_NUMBER = "order_number";
 
 	public static final String DELIVERY_MODE = "delivery_mode";
@@ -217,6 +245,8 @@ public class UserOrder extends Model<UserOrder> {
 
 	public static final String TYPE = "type";
 
+	public static final String LOGISTICS_NUMBER = "logistics_number";
+
 	public static final String STATUS = "status";
 
 	public static final String CREATE_TIME = "create_time";
@@ -233,6 +263,7 @@ public class UserOrder extends Model<UserOrder> {
 		return "UserOrder{" +
 			"id=" + id +
 			", userId=" + userId +
+			", userOrderNumber=" + userOrderNumber +
 			", orderNumber=" + orderNumber +
 			", deliveryMode=" + deliveryMode +
 			", address=" + address +
@@ -242,6 +273,7 @@ public class UserOrder extends Model<UserOrder> {
 			", freight=" + freight +
 			", price=" + price +
 			", type=" + type +
+			", logisticsNumber=" + logisticsNumber +
 			", status=" + status +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
