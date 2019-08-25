@@ -1,0 +1,16 @@
+package com.nzgreens.common.mapper;
+
+import com.nzgreens.common.entity.PayOrder;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
+
+/**
+ * <p>
+  * 支付订单表 Mapper 接口
+ * </p>
+ *
+ * @author sylar
+ * @since 2018-07-01
+ */
+public interface PayOrderMapper extends BaseMapper<PayOrder> {
+
+}

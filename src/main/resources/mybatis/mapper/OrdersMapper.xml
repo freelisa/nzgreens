@@ -28,7 +28,7 @@
           orders.order_number = #{requestMap.orderNumber}
     </select>
 
-    <select id="selectManageItems" resultType="com.nzgreens.common.entity.extend.ManageItemDTO" parameterType="java.lang.String">
+    <select id="selectManageItems" resultType="com.nzgreens.common.entity.extend.ManageItemDTO" parameterType="java.util.Map">
         SELECT
         products.title,
         products.image,
@@ -38,12 +38,14 @@
         orders.product_number productNumber,
         orders.agent_price agentPrice,
         orders.price productTotalPrice,
-        orders.status orderStatus
+        orders.status orderStatus,
+        agent_products.price agentSellingPrice
         FROM
         orders
         LEFT JOIN products ON products.id = orders.product_id
+        LEFT JOIN agent_products ON agent_products.product_id = orders.product_id AND agent_products.agent_user_id = #{requestMap.userAgentId}
         WHERE
-        orders.order_number = #{orderNumber}
+        orders.order_number = #{requestMap.orderNumber}
     </select>
 
     <select id="selectMergeManageItemForPage" resultType="com.nzgreens.common.entity.extend.MergeOrderItem"

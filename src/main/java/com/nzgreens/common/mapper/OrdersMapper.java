@@ -31,10 +31,10 @@ public interface OrdersMapper extends BaseMapper<Orders> {
 
     /**
      * 通过orderNumber查询 manage item list
-     * @param orderNumber
+     * @param map
      * @return
      */
-    List<ManageItemDTO> selectManageItems(@Param("orderNumber") String orderNumber);
+    List<ManageItemDTO> selectManageItems(@Param("requestMap") Map<String, Object> map);
 
     /**
      * 查询用户合并管理列表

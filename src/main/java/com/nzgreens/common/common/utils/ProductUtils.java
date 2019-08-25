@@ -76,7 +76,7 @@ public class ProductUtils {
         if (productTotalWeight >= productFreight.getProductWeight()) {
             return productTotalWeight * productFreight.getFreight() / productFreight.getProductWeight();
         }
-        return productFreight.getFreight();
+        return productFreight.getMinFreight();
     }
 
     private ProductFreightDTO getProductFreight(){
@@ -91,6 +91,7 @@ public class ProductUtils {
             BeanUtils.copyProperties(productFreight, freightDTO);
         }
         freightDTO.setFreight(PriceUtils.convertPriceToYuanNumber(productFreight.getFreight()));
+        freightDTO.setMinFreight(PriceUtils.convertPriceToYuanNumber(productFreight.getMinFreight()));
         return freightDTO;
     }
 

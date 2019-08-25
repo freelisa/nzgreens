@@ -11,6 +11,8 @@ public class ManageItemDTO extends BaseOrderItem{
     @JSONField(serialize = false)
     private Integer orderStatus;
     private Double productTotalPrice;
+    @JSONField(serialize = false)
+    private Long agentSellingPrice;
 
     public Long getAgentPrice() {
         return agentPrice;
@@ -34,5 +36,13 @@ public class ManageItemDTO extends BaseOrderItem{
 
     public void setOrderStatus(Integer orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Long getAgentSellingPrice() {
+        return agentSellingPrice;
+    }
+
+    public void setAgentSellingPrice(Long agentSellingPrice) {
+        this.agentSellingPrice = agentSellingPrice;
     }
 }
