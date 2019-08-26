@@ -9,8 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-
 /**
  * 订单号工具类
  * Created by sylar on 2018/4/6.

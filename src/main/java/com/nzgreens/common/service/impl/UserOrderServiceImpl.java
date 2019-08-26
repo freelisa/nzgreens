@@ -582,6 +582,8 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
 
 
 
+
+
     private class GeneratorOrder {
         private Users user;
         private DeliveryModeEnum deliveryModeEnum;

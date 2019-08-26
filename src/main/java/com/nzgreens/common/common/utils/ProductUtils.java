@@ -12,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -61,15 +60,13 @@ public class ProductUtils {
      * @return
      */
     public Long computeFreight (Long productTotalWeight, DeliveryModeEnum deliveryModeEnum, UserTypeEnum userTypeEnum){
-
         ProductFreight productFreight = null;
         try {
-            productFreight = this.freightLoadingCache.get("PRODUCT_FREIGHT");
+            productFreight = freightLoadingCache.get(key);
+        } catch (ExecutionException e) {
+            productFreight = productFreightService.selectOne(null);
         }
-        catch (ExecutionException e) {
-            productFreight = this.productFreightService.selectOne(null);
-        }
-        if ((productTotalWeight == null) || (productTotalWeight.longValue() == 0L)) {
+        if (productTotalWeight == null || productTotalWeight == 0L) {
             return productFreight.getFreight();
         }
         if (DeliveryModeEnum._DELIVERY.equals(deliveryModeEnum)) {
@@ -85,9 +82,9 @@ public class ProductUtils {
         ProductFreightDTO freightDTO = new ProductFreightDTO();
         ProductFreight productFreight = null;
         try {
-            productFreight = this.freightLoadingCache.get("PRODUCT_FREIGHT");
+            productFreight = freightLoadingCache.get(key);
         } catch (ExecutionException e) {
-            productFreight = this.productFreightService.selectOne(null);
+            productFreight = productFreightService.selectOne(null);
         }
         if (productFreight != null) {
             BeanUtils.copyProperties(productFreight, freightDTO);
