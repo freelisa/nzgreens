@@ -61,36 +61,39 @@ public class ProductUtils {
      * @return
      */
     public Long computeFreight (Long productTotalWeight, DeliveryModeEnum deliveryModeEnum, UserTypeEnum userTypeEnum){
+
         ProductFreight productFreight = null;
         try {
-            productFreight = freightLoadingCache.get(key);
-        } catch (ExecutionException e) {
-            productFreight = productFreightService.selectOne(null);
+            productFreight = this.freightLoadingCache.get("PRODUCT_FREIGHT");
         }
-        if (productTotalWeight == null || productTotalWeight == 0L) {
+        catch (ExecutionException e) {
+            productFreight = this.productFreightService.selectOne(null);
+        }
+        if ((productTotalWeight == null) || (productTotalWeight.longValue() == 0L)) {
             return productFreight.getFreight();
         }
         if (DeliveryModeEnum._DELIVERY.equals(deliveryModeEnum)) {
-            return productTotalWeight * productFreight.getFreight() / productFreight.getProductWeight();
+            return Long.valueOf(productTotalWeight.longValue() * productFreight.getFreight().longValue() / productFreight.getProductWeight().longValue());
         }
-        if (productTotalWeight >= productFreight.getProductWeight()) {
-            return productTotalWeight * productFreight.getFreight() / productFreight.getProductWeight();
+        if (productTotalWeight.longValue() >= productFreight.getProductWeight().longValue()) {
+            return Long.valueOf(productTotalWeight.longValue() * productFreight.getFreight().longValue() / productFreight.getProductWeight().longValue());
         }
-        return productFreight.getFreight();
+        return productFreight.getMinFreight();
     }
 
     private ProductFreightDTO getProductFreight(){
         ProductFreightDTO freightDTO = new ProductFreightDTO();
         ProductFreight productFreight = null;
         try {
-            productFreight = freightLoadingCache.get(key);
+            productFreight = this.freightLoadingCache.get("PRODUCT_FREIGHT");
         } catch (ExecutionException e) {
-            productFreight = productFreightService.selectOne(null);
+            productFreight = this.productFreightService.selectOne(null);
         }
         if (productFreight != null) {
             BeanUtils.copyProperties(productFreight, freightDTO);
         }
         freightDTO.setFreight(PriceUtils.convertPriceToYuanNumber(productFreight.getFreight()));
+        freightDTO.setMinFreight(PriceUtils.convertPriceToYuanNumber(productFreight.getMinFreight()));
         return freightDTO;
     }
 

@@ -30,6 +30,6 @@ public class UserBo {
      * @return
      */
     public Users getAgentUser(Long userId){
-        return usersService.selectById(userAgentBo.getUserAgent(userId));
+        return usersService.selectById(userAgentBo.getUserAgent(userId).getAgentUserId());
     }
 }

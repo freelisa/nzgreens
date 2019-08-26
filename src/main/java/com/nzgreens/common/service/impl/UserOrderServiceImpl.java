@@ -24,6 +24,8 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
+import static com.nzgreens.common.common.utils.OrderNumberUtils.getLastOrderNumber;
+
 /**
  * <p>
  * 用户订单关联表 服务实现类
@@ -562,7 +564,7 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
 
         List<Users> usersList = new ArrayList<>();
         //设置订单号
-        user.setLastOrderNumber(Long.valueOf(orderNumber));
+        user.setLastOrderNumber(getLastOrderNumber(orderNumber));
         usersList.add(user);
         usersList.add(higherUser);
 
@@ -577,8 +579,6 @@ public class UserOrderServiceImpl extends ServiceImpl<UserOrderMapper, UserOrder
         accountLogsService.insertBatch(accountLogsList);
         return userOrder;
     }
-
-
 
 
 

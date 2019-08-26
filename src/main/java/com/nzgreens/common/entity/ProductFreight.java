@@ -35,6 +35,8 @@ public class ProductFreight extends Model<ProductFreight> {
      * 运费（单位：分）
      */
 	private Long freight;
+	@TableField("min_freight")
+	private Long minFreight;
     /**
      * 创建时间
      */
@@ -71,6 +73,13 @@ public class ProductFreight extends Model<ProductFreight> {
 		this.freight = freight;
 	}
 
+	public Long getMinFreight() {
+		return this.minFreight;
+	}
+
+	public void setMinFreight(Long minFreight) {
+		this.minFreight = minFreight;
+	}
 	public Date getCreateTime() {
 		return createTime;
 	}

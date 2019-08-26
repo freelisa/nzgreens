@@ -13,6 +13,8 @@ public class ProductFreightDTO {
      */
     private Double freight;
 
+    private Double minFreight;
+
     public Long getProductWeight() {
         return productWeight;
     }
@@ -27,5 +29,13 @@ public class ProductFreightDTO {
 
     public void setFreight(Double freight) {
         this.freight = freight;
+    }
+
+    public Double getMinFreight() {
+        return this.minFreight;
+    }
+
+    public void setMinFreight(Double minFreight) {
+        this.minFreight = minFreight;
     }
 }

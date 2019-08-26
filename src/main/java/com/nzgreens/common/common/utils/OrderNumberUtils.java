@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.nzgreens.common.common.enums.DeliveryModeEnum;
 import com.nzgreens.common.entity.Users;
 import com.nzgreens.common.service.UsersService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -61,8 +62,22 @@ public class OrderNumberUtils {
                 Column.create().column(Users.TELEPHONE),
                 Column.create().column(Users.LAST_ORDER_NUMBER).as("lastOrderNumber")).eq(Users.ID, userId));
         if (users.getLastOrderNumber() == null || users.getLastOrderNumber() == 0) {
-            return users.getTelephone() + 1;
+            return users.getTelephone() + "-" + 1;
         }
-        return String.valueOf(users.getLastOrderNumber() + 1);
+        return String.valueOf(users.getLastOrderNumber() + 1).replaceAll(users.getTelephone(), users.getTelephone() + "-");
     }
+
+
+
+    public static Long getLastOrderNumber(String orderNumber){
+        if (StringUtils.isNumeric(orderNumber)) {
+            return Long.valueOf(orderNumber);
+        }
+        String number = orderNumber.replace("-","");
+        if (StringUtils.isNumeric(number)) {
+            return Long.valueOf(number);
+        }
+        return 0L;
+    }
+
 }
