@@ -96,10 +96,9 @@ public class FileUploadUtil {
     }
 
     public static void main(String[] args) {
-        File file =new File("C:\\Users\\sylar\\Pictures\\5934d242d0fe8.png");
+        File file =new File("/Users/sylar/Downloads/grace.jpg");
         FileInputStream fis = null;
-        System.out.println("C:\\Users\\sylar\\Pictures\\5934d242d0fe8png".lastIndexOf("."));
-     /*   try {
+        try {
             fis = new FileInputStream(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -117,6 +116,6 @@ public class FileUploadUtil {
         byte[] data = baos.toByteArray();
 
 
-        uploadFile(1L,FileTypeEnum._FREIGHT,"!.s",data);*/
+        uploadFile(1L,FileTypeEnum._FREIGHT,"!.s",data);
     }
 }
