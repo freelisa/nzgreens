@@ -4,12 +4,21 @@ import com.nzgreens.common.common.result.BaseResponse;
 import com.nzgreens.common.entity.PayOrder;
 
 /**
- * @author sylar
- * @Description:
- * @date 2018/10/2 6:47 PM
+ * 支付接口
+ * 支付方式 1：微信支付 2：IOS原生支付
  */
 public interface PayService {
-    public abstract Integer createOrder(PayOrder paramPayOrder);
+	/**
+	 * 创建支付订单
+	 * @param payOrder
+	 * @return
+	 */
+	Integer createOrder(PayOrder payOrder);
 
-    public abstract BaseResponse queryOrder(Integer paramInteger);
+	/**
+	 * 查询订单
+	 * @param orderId
+	 * @return
+	 */
+	BaseResponse queryOrder(Integer orderId);
 }

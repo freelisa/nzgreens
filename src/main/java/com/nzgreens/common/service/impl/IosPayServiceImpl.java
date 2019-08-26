@@ -9,34 +9,47 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.stereotype.Service;
 
+/**
+ * @Author:helizheng
+ * @Date: Created in 2017/8/21 23:21
+ */
 @Service("iosPayService")
-public class IosPayServiceImpl
-        implements PayService
-{
-    private static final Logger logger = LoggerFactory.getLogger(IosPayServiceImpl.class);
+public class IosPayServiceImpl implements PayService {
+    private final static Logger logger = LoggerFactory.getLogger(IosPayServiceImpl.class);
 
-    public Integer createOrder(PayOrder payOrder)
-    {
-        logger.info("ios������������������-------------------->");
-
+    /**
+     * 创建支付订单
+     *
+     * @param payOrder
+     * @return
+     */
+    @Override
+    public Integer createOrder(PayOrder payOrder) {
+        logger.info("ios创建订单开始-------------------->");
+        //请求支付接口
         PayOrder payOrd = new PayOrder();
-        try
-        {
+        //保存订单
+        try {
             BeanUtils.copyProperties(payOrder, payOrd);
-
+            //新增订单
             payOrd.insert();
+        } catch (BeansException e) {
+            logger.error("ios创建订单失败-------------------->");
+            return 0;
         }
-        catch (BeansException e)
-        {
-            logger.error("ios������������������-------------------->");
-            return Integer.valueOf(0);
-        }
-        logger.info("ios������������������-------------------->");
+        //将返回的数据返回给app
+        logger.info("ios创建订单结束-------------------->");
         return payOrd.getId();
     }
 
-    public BaseResponse queryOrder(Integer orderId)
-    {
+    /**
+     * 查询订单
+     *
+     * @param orderId
+     * @return
+     */
+    @Override
+    public BaseResponse queryOrder(Integer orderId) {
         return null;
     }
 }

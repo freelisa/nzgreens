@@ -1,8 +1,16 @@
 package com.nzgreens.common.mapper;
 
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.nzgreens.common.entity.TripartiteOrder;
+import com.baomidou.mybatisplus.mapper.BaseMapper;
 
-public abstract interface TripartiteOrderMapper
-        extends BaseMapper<TripartiteOrder>
-{}
+/**
+ * <p>
+  * 三方支付订单表 Mapper 接口
+ * </p>
+ *
+ * @author sylar
+ * @since 2018-07-01
+ */
+public interface TripartiteOrderMapper extends BaseMapper<TripartiteOrder> {
+
+}

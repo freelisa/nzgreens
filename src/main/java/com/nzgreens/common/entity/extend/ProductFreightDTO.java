@@ -12,7 +12,9 @@ public class ProductFreightDTO {
      * 运费（单位：金币）
      */
     private Double freight;
-
+    /**
+     * 不足一公斤最小运费
+     */
     private Double minFreight;
 
     public Long getProductWeight() {
@@ -32,7 +34,7 @@ public class ProductFreightDTO {
     }
 
     public Double getMinFreight() {
-        return this.minFreight;
+        return minFreight;
     }
 
     public void setMinFreight(Double minFreight) {

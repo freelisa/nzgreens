@@ -1,8 +1,16 @@
 package com.nzgreens.common.service;
 
-import com.baomidou.mybatisplus.service.IService;
 import com.nzgreens.common.entity.TripartiteOrder;
+import com.baomidou.mybatisplus.service.IService;
 
-public abstract interface TripartiteOrderService
-        extends IService<TripartiteOrder>
-{}
+/**
+ * <p>
+ * 三方支付订单表 服务类
+ * </p>
+ *
+ * @author sylar
+ * @since 2018-07-01
+ */
+public interface TripartiteOrderService extends IService<TripartiteOrder> {
+
+}

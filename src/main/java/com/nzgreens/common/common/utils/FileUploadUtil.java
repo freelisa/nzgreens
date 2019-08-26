@@ -70,7 +70,7 @@ public class FileUploadUtil {
      * @param fileTypeEnum
      * @return
      */
-    private static String getUploadFilePath(Long id, FileTypeEnum fileTypeEnum) {
+    public static String getUploadFilePath(Long id, FileTypeEnum fileTypeEnum) {
         if (id == null)
             return basePath + fileTypeEnum.getPath();
         return basePath + fileTypeEnum.getPath() + File.separator + id;

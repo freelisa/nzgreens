@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author sylar
- * @since 2018-04-06
+ * @since 2018-09-09
  */
 @TableName("product_freight")
 public class ProductFreight extends Model<ProductFreight> {
@@ -32,9 +32,12 @@ public class ProductFreight extends Model<ProductFreight> {
 	@TableField("product_weight")
 	private Long productWeight;
     /**
-     * 运费（单位：分）
+     * 运费（单位：金币）
      */
 	private Long freight;
+    /**
+     * 不足一公斤最小运费
+     */
 	@TableField("min_freight")
 	private Long minFreight;
     /**
@@ -74,12 +77,13 @@ public class ProductFreight extends Model<ProductFreight> {
 	}
 
 	public Long getMinFreight() {
-		return this.minFreight;
+		return minFreight;
 	}
 
 	public void setMinFreight(Long minFreight) {
 		this.minFreight = minFreight;
 	}
+
 	public Date getCreateTime() {
 		return createTime;
 	}
@@ -102,6 +106,8 @@ public class ProductFreight extends Model<ProductFreight> {
 
 	public static final String FREIGHT = "freight";
 
+	public static final String MIN_FREIGHT = "min_freight";
+
 	public static final String CREATE_TIME = "create_time";
 
 	public static final String UPDATE_TIME = "update_time";
@@ -117,6 +123,7 @@ public class ProductFreight extends Model<ProductFreight> {
 			"id=" + id +
 			", productWeight=" + productWeight +
 			", freight=" + freight +
+			", minFreight=" + minFreight +
 			", createTime=" + createTime +
 			", updateTime=" + updateTime +
 			"}";
