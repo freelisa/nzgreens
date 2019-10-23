@@ -22,18 +22,17 @@ public class FileUploadUtil {
      */
     public static String uploadFile(Long id, FileTypeEnum fileTypeEnum, String fileName, byte[] fileBytes) {
         String filePath = getUploadFilePath(id, fileTypeEnum);
-        System.out.println(getFileExtendName(fileBytes));
         /**
          * 上传文件目录
          */
         File uploadPath = new File(filePath);
-        if (!uploadPath.exists()) {
-            uploadPath.mkdirs();
+        if (!uploadPath.getParentFile().mkdirs()) {
+            uploadPath.getParentFile().mkdirs();
         }
         String uploadFileName = getUploadFileName(fileName);
         try {
             BufferedOutputStream out = new BufferedOutputStream(
-                    new FileOutputStream(filePath + File.separator + uploadFileName));
+                    new FileOutputStream(filePath + File.separator + "dsad.jeg"));
             try {
                 out.write(fileBytes);
             } finally {
@@ -116,6 +115,6 @@ public class FileUploadUtil {
         byte[] data = baos.toByteArray();
 
 
-        uploadFile(1L,FileTypeEnum._FREIGHT,"!.s",data);
+        System.out.println(uploadFile(1L,FileTypeEnum._FREIGHT,"!.s",data));
     }
 }
